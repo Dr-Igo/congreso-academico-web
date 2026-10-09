@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { saveAccount, saveSession } from '../lib/auth'
 
 const initialForm = {
   firstName: '',
@@ -55,21 +56,28 @@ function RegisterPage() {
 
     if (Object.keys(nextErrors).length > 0) return
 
-    localStorage.setItem(
-      'congreso-account',
-      JSON.stringify({
-        email: form.email,
-        firstName: form.firstName,
-        lastName: form.lastName,
-        password: form.password,
-        role: form.role,
-      }),
-    )
+    const account = {
+      email: form.email.trim().toLowerCase(),
+      firstName: form.firstName.trim(),
+      lastName: form.lastName.trim(),
+      institution: form.institution,
+      career: form.career,
+      studentCode: form.studentCode.trim(),
+      password: form.password,
+      role: form.role,
+      interests: [],
+    }
+    const session = {
+      email: account.email,
+      name: `${account.firstName} ${account.lastName}`,
+      role: account.role,
+    }
 
-    navigate('/iniciar-sesion', {
-      state: {
-        successMessage: `Cuenta creada correctamente para ${form.email}. Ya puede iniciar sesión.`,
-      },
+    saveAccount(account)
+    saveSession(session)
+    navigate('/registro-exitoso', {
+      replace: true,
+      state: { name: session.name },
     })
   }
 
