@@ -1,0 +1,126 @@
+.bandeja-contenedor {
+  padding: 40px;
+  font-family: 'Inter', sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.filtros-barra {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid #E4DFDA;
+}
+
+.filtro-btn {
+  background: none;
+  border: none;
+  color: #666;
+  padding-bottom: 12px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.filtro-btn.activo {
+  border-bottom: 2px solid #7A2231;
+  font-weight: bold;
+  color: #000;
+}
+
+.grid-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+
+.tarjeta {
+  border: 1px solid #E4DFDA;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f1f4ee;
+}
+
+.tarjeta-etiquetas {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.etiqueta {
+  background-color: #F0F0F0;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+}
+
+.btn-evaluar {
+  background-color: #7A2231;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cabecera-bandeja {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.cajas-resumen {
+  display: flex;
+  gap: 16px;
+}
+
+.caja-estadistica-pendientes {
+  background-color: #fad36666;
+  border: 2px solid #b6a84b;
+  padding: 16px 24px;
+  border-radius: 2px;
+  text-align: center;
+  min-width: 100px;
+}
+
+.caja-estadistica-entregadas {
+  background-color: #4db4314a;
+  border: 1px solid #225414;
+  padding: 16px 24px;
+  border-radius: 2px;
+  text-align: center;
+  min-width: 100px;
+}
+
+.caja-numero-pendientes {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  color: #786226;
+  margin-bottom: 4px;
+}
+
+.caja-numero-entregadas {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  color: #225414;
+  margin-bottom: 4px;
+}
+
+.caja-texto-pendientes {
+  font-size: 14px;
+  color: #786226;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.caja-texto-entregadas {
+  font-size: 12px;
+  color: #225414;
+  text-transform: uppercase;
+  font-weight: bold;
+}
