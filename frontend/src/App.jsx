@@ -8,6 +8,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import Hu3Page from './historias/hu3/Hu3Page'
 import ConfiguracionPage from './historias/hu2/ConfiguracionPage'
 import Hu4App from './Hu4App'
+import { BandejaRevisor } from './pages/BandejaRevisor'
 
 function App() {
   return (
@@ -28,6 +29,14 @@ function App() {
         <Route path="/recuperar-contrasena" element={<PasswordRecoveryPage />} />
         <Route path="/registro" element={<RegisterPage />} />
 	<Route path="/configuracion-edicion" element={<ConfiguracionPage />} />
+	<Route
+  	path="/bandeja-revisor"
+  	element={
+    	<div className="hu5-scope">
+      	<BandejaRevisor />
+   	 </div>
+  	}
+	/>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
