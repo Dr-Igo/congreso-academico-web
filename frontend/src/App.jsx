@@ -5,10 +5,13 @@ import LoginPage from './pages/LoginPage'
 import PasswordRecoveryPage from './pages/PasswordRecoveryPage'
 import RegisterPage from './pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
+import Hu3Page from './historias/hu3/Hu3Page'
 
 function App() {
   return (
     <Routes>
+      <Route path="/mis-trabajos" element={<Hu3Page />} />
+
       <Route element={<Layout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/iniciar-sesion" element={<LoginPage />} />
