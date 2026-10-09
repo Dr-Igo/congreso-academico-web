@@ -1,6 +1,12 @@
 @tailwind components;
 @tailwind utilities;
 .hu2-scope {
+  --primary: #8a1f35;
+  --primary-dark: #681426;
+  --fondo: #faf8f6;
+  --borde: #ded5d2;
+  --texto: #241b1d;
+  --suave: #6f6265;
   box-sizing: border-box;
   width: 100%;
   max-width: 1200px;

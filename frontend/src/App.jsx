@@ -7,11 +7,20 @@ import RegisterPage from './pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
 import Hu3Page from './historias/hu3/Hu3Page'
 import ConfiguracionPage from './historias/hu2/ConfiguracionPage'
+import Hu4App from './Hu4App'
 
 function App() {
   return (
     <Routes>
       <Route path="/mis-trabajos" element={<Hu3Page />} />
+	<Route
+  	path="/gestion-revisiones"
+  	element={
+    	<div className="hu4-scope tailwind-scope">
+      	<Hu4App />
+    	</div>
+  	}
+	/>
 
       <Route element={<Layout />}>
         <Route path="/" element={<LandingPage />} />

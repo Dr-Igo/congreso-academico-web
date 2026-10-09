@@ -18,7 +18,7 @@ export default function ConfiguracionPage() {
   const [activa, setActiva] = useState("edicion")
 
   return (
-    <div className="hu2-scope">
+    <div className="hu2-scope tailwind-scope">
       <h1 className="text-3xl font-bold">Configuración de la edición</h1>
       <p className="text-suave mb-4">Defina la edición vigente antes de abrir la recepción de trabajos.</p>
 
