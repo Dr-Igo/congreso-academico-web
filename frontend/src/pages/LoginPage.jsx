@@ -1,16 +1,30 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { getAccountByEmail, getRoleHome, saveSession } from '../lib/auth'
 
-const DEMO_EMAIL = 'rosa.quispe@aloe.ulima.edu.pe'
-const DEMO_PASSWORD = 'React2026'
-
-function getRegisteredAccount() {
-  try {
-    return JSON.parse(localStorage.getItem('congreso-account'))
-  } catch {
-    return null
-  }
-}
+const DEMO_ACCOUNTS = [
+  {
+    email: 'rosa.quispe@aloe.ulima.edu.pe',
+    password: 'React2026',
+    name: 'Rosa Quispe',
+    role: 'autor',
+    label: 'Autor',
+  },
+  {
+    email: 'luis.ramirez@ulima.edu.pe',
+    password: 'Revisar2026',
+    name: 'Luis Ramírez',
+    role: 'revisor',
+    label: 'Revisor',
+  },
+  {
+    email: 'comite@ulima.edu.pe',
+    password: 'Comite2026',
+    name: 'Ana Salazar',
+    role: 'comite',
+    label: 'Comité',
+  },
+]
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -32,12 +46,14 @@ function LoginPage() {
     if (!form.email.trim()) nextErrors.email = 'Ingrese su correo institucional.'
     if (!form.password) nextErrors.password = 'Ingrese su contraseña.'
 
-    const registeredAccount = getRegisteredAccount()
-    const isDemoAccount = form.email === DEMO_EMAIL && form.password === DEMO_PASSWORD
-    const isRegisteredAccount =
-      registeredAccount?.email === form.email && registeredAccount?.password === form.password
+    const normalizedEmail = form.email.trim().toLowerCase()
+    const registeredAccount = getAccountByEmail(normalizedEmail)
+    const demoAccount = DEMO_ACCOUNTS.find(
+      (account) => account.email === normalizedEmail && account.password === form.password,
+    )
+    const isRegisteredAccount = registeredAccount?.password === form.password
 
-    if (Object.keys(nextErrors).length === 0 && !isDemoAccount && !isRegisteredAccount) {
+    if (Object.keys(nextErrors).length === 0 && !demoAccount && !isRegisteredAccount) {
       nextErrors.general =
         'El correo o la contraseña no son correctos. Verifique los datos e intente nuevamente.'
       nextErrors.password = 'Verifique su contraseña.'
@@ -55,10 +71,15 @@ function LoginPage() {
           role: registeredAccount.role,
           remember: form.remember,
         }
-      : { email: form.email, name: 'Rosa Quispe', role: 'autor', remember: form.remember }
+      : {
+          email: demoAccount.email,
+          name: demoAccount.name,
+          role: demoAccount.role,
+          remember: form.remember,
+        }
 
-    localStorage.setItem('congreso-session', JSON.stringify(session))
-    navigate('/', {
+    saveSession(session)
+    navigate(location.state?.from || getRoleHome(session.role), {
       replace: true,
       state: { successMessage: `Sesión iniciada correctamente. Bienvenido(a), ${session.name}.` },
     })
@@ -146,12 +167,25 @@ function LoginPage() {
 
         <div className="demo-credentials">
           <strong>Credenciales para la demostración</strong>
-          <span>{DEMO_EMAIL}</span>
-          <span>{DEMO_PASSWORD}</span>
+          {DEMO_ACCOUNTS.map((account) => (
+            <button
+              className="demo-account"
+              key={account.role}
+              onClick={() => setForm({ email: account.email, password: account.password, remember: false })}
+              type="button"
+            >
+              <strong>{account.label}</strong>
+              <span>{account.email}</span>
+              <span>{account.password}</span>
+            </button>
+          ))}
         </div>
 
         <p className="auth-footer-text">
           ¿No tiene cuenta? <Link to="/registro">Registrarse como participante</Link>
+        </p>
+        <p className="auth-footer-text auth-footer-text--secondary">
+          ¿Recibió una invitación? <Link to="/registro-comite">Activar cuenta del comité</Link>
         </p>
       </div>
     </section>

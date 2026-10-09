@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   AlertTriangle,
   ArrowLeft,
@@ -24,6 +25,7 @@ import {
   Users,
   X,
 } from 'lucide-react'
+import { clearSession } from '../../lib/auth'
 import './hu3.css'
 
 const SEED = [
@@ -39,6 +41,7 @@ const blankForm = () => ({title:'',type:'Artículo completo',axis:'',abstract:''
 function loadWorks(){try{const value=localStorage.getItem('hu3-works');return value?JSON.parse(value):SEED;}catch{return SEED;}}
 function statusClass(status){return 'status status-'+status.toLowerCase().replaceAll(' ','-');}
 function Hu3Page(){
+ const routeNavigate=useNavigate();
  const [works,setWorks]=useState(loadWorks);
  const [view,setView]=useState('list');
  const [form,setForm]=useState(blankForm);
@@ -70,7 +73,7 @@ function Hu3Page(){
  const nav=(v)=>{setView(v);setMobileMenu(false);setErrors({});};
  return <div className="hu3-scope app-shell">
   <header className="topbar"><div className="topbar-inner"><button className="brand" onClick={()=>nav('list')} aria-label="Ir a mis trabajos"><span className="brand-mark">C</span><span className="brand-copy"><strong>Congreso Académico Estudiantil</strong><small>UNIVERSIDAD DE LIMA · EDICIÓN 2026</small></span></button><div className="edition-state"><span className="state-dot"/> <span>ESTADO DE LA EDICIÓN</span><b>Recepción abierta</b></div><button className="mobile-menu" onClick={()=>setMobileMenu(p=>!p)}><Menu size={19}/></button></div></header>
-  <nav className={`nav-bar ${mobileMenu?'nav-open':''}`}><div className="nav-inner"><div className="nav-links"><button onClick={()=>nav('list')} className={view==='list'?'active':''}>Inicio</button><button onClick={startNew} className={view==='form'?'active':''}>Nuevo trabajo</button><button onClick={()=>nav('list')} className={view==='list'||view==='detail'?'active':''}>Mis trabajos</button><button onClick={()=>setToast({type:'info',text:'La vista de presentación se integrará con la historia del programa del congreso.'})}>Mi presentación</button><button onClick={()=>setToast({type:'info',text:'Los datos de cuenta pertenecen a la HU-1. En este prototipo se muestra un perfil de demostración.'})}>Mi cuenta</button></div><div className="user-menu"><span className="avatar">RQ</span><span><strong>Rosa Quispe Ttito</strong><small>Rol: Autor</small></span><ChevronDown size={15}/></div></div></nav>
+  <nav className={`nav-bar ${mobileMenu?'nav-open':''}`}><div className="nav-inner"><div className="nav-links"><button onClick={()=>nav('list')} className={view==='list'?'active':''}>Inicio</button><button onClick={startNew} className={view==='form'?'active':''}>Nuevo trabajo</button><button onClick={()=>nav('list')} className={view==='list'||view==='detail'?'active':''}>Mis trabajos</button><button onClick={()=>setToast({type:'info',text:'La vista de presentación se integrará con la historia del programa del congreso.'})}>Mi presentación</button><button onClick={()=>routeNavigate('/mi-cuenta')}>Mi cuenta</button><button onClick={()=>{clearSession();routeNavigate('/')}}>Cerrar sesión</button></div><div className="user-menu"><span className="avatar">RQ</span><span><strong>Rosa Quispe Ttito</strong><small>Rol: Autor</small></span><ChevronDown size={15}/></div></div></nav>
   <main className="page-wrap">
    {view!=='detail'&&<div className="deadline"><div><Clock3 size={16}/><span><strong>Recepción abierta.</strong> Cierra el 30/10/2026 a las 23:59.</span></div><strong className="deadline-count">Faltan 22 días</strong></div>}
    {view==='list'&&<section className="page-content"><div className="page-heading"><div><p className="eyebrow">ÁREA DE AUTOR</p><h1>Mis trabajos</h1><p className="subheading">Consulta y administra tus trabajos como autora o coautora.</p></div><button className="btn btn-primary" onClick={startNew}><Plus size={17}/> Nuevo trabajo</button></div>

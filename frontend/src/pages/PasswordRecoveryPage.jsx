@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { updateStoredPassword } from '../lib/auth'
 
 const initialForm = {
   email: '',
-  code: '',
   password: '',
   confirmPassword: '',
 }
@@ -12,6 +12,7 @@ function PasswordRecoveryPage() {
   const [step, setStep] = useState(1)
   const [form, setForm] = useState(initialForm)
   const [error, setError] = useState('')
+  const [resent, setResent] = useState(false)
 
   const handleChange = (event) => {
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }))
@@ -27,15 +28,6 @@ function PasswordRecoveryPage() {
     setStep(2)
   }
 
-  const handleCodeSubmit = (event) => {
-    event.preventDefault()
-    if (form.code !== '123456') {
-      setError('El código no es correcto. Para la demostración use 123456.')
-      return
-    }
-    setStep(3)
-  }
-
   const handlePasswordSubmit = (event) => {
     event.preventDefault()
     if (form.password.length < 8 || !/[A-Z]/.test(form.password) || !/\d/.test(form.password)) {
@@ -47,17 +39,7 @@ function PasswordRecoveryPage() {
       return
     }
 
-    try {
-      const account = JSON.parse(localStorage.getItem('congreso-account'))
-      if (account?.email === form.email) {
-        localStorage.setItem(
-          'congreso-account',
-          JSON.stringify({ ...account, password: form.password }),
-        )
-      }
-    } catch {
-      // La recuperación continúa en modo demostración aunque no exista una cuenta local.
-    }
+    updateStoredPassword(form.email, form.password)
 
     setStep(4)
   }
@@ -78,7 +60,7 @@ function PasswordRecoveryPage() {
             <div className="auth-heading">
               <p className="eyebrow eyebrow--dark">Recuperación de acceso</p>
               <h1>Recupere su contraseña</h1>
-              <p>Enviaremos un código de verificación a su correo institucional.</p>
+              <p>Enviaremos un enlace de recuperación a su correo institucional.</p>
             </div>
             <form noValidate onSubmit={handleEmailSubmit}>
               <div className="field">
@@ -94,7 +76,7 @@ function PasswordRecoveryPage() {
                 />
                 {error && <span className="field-error">{error}</span>}
               </div>
-              <button className="button button--primary button--full" type="submit">Enviar código</button>
+              <button className="button button--primary button--full" type="submit">Enviar enlace</button>
             </form>
           </>
         )}
@@ -102,32 +84,19 @@ function PasswordRecoveryPage() {
         {step === 2 && (
           <>
             <div className="auth-heading">
-              <p className="eyebrow eyebrow--dark">Verificación</p>
-              <h1>Ingrese el código</h1>
-              <p>Se envió un código de seis dígitos a {form.email}.</p>
+              <p className="eyebrow eyebrow--dark">Revise su correo</p>
+              <h1>Enlace enviado</h1>
+              <p>Enviamos las instrucciones para restablecer su contraseña a <strong>{form.email}</strong>.</p>
             </div>
-            <form noValidate onSubmit={handleCodeSubmit}>
-              <div className="field">
-                <label htmlFor="verificationCode">Código de verificación</label>
-                <input
-                  aria-invalid={Boolean(error)}
-                  autoComplete="one-time-code"
-                  id="verificationCode"
-                  inputMode="numeric"
-                  maxLength="6"
-                  name="code"
-                  onChange={handleChange}
-                  placeholder="000000"
-                  value={form.code}
-                />
-                {error ? (
-                  <span className="field-error">{error}</span>
-                ) : (
-                  <span className="field-help">Código de demostración: 123456</span>
-                )}
-              </div>
-              <button className="button button--primary button--full" type="submit">Verificar código</button>
-            </form>
+            <div className="mail-sent-box">
+              <span aria-hidden="true">✉</span>
+              <p>Para esta demostración, simule la apertura del enlace con el botón siguiente.</p>
+            </div>
+            {resent && <div className="notification notification--success" role="status">El enlace fue reenviado.</div>}
+            <button className="button button--primary button--full" onClick={() => setStep(3)} type="button">
+              Abrir enlace de demostración
+            </button>
+            <button className="text-button" onClick={() => setResent(true)} type="button">Reenviar enlace</button>
           </>
         )}
 

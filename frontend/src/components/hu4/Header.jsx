@@ -1,6 +1,7 @@
 
+import { Link } from 'react-router-dom'
 import { TABS, USER } from './headerConstants.js'
-export default function Header({ active, onNavigate, editionState }) {
+export default function Header({ active, onNavigate, editionState, onLogout }) {
   return (
     <header>
       <div className="bg-primary text-white">
@@ -47,16 +48,24 @@ export default function Header({ active, onNavigate, editionState }) {
             })}
           </nav>
           <div className="flex shrink-0 items-center gap-2.5 py-2">
-            <div className="hidden text-right leading-tight md:block">
+            <Link className="hidden text-right leading-tight no-underline md:block" to="/mi-cuenta">
               <p className="text-[12px] font-semibold text-ink">{USER.name}</p>
               <p className="text-[10px] text-muted">Rol: {USER.role}</p>
-            </div>
-            <span
+            </Link>
+            <Link
+              to="/mi-cuenta"
               className="grid size-7 place-items-center rounded-sm bg-primary-soft text-[11px] font-bold text-primary"
               title={`${USER.name} · ${USER.role}`}
             >
               {USER.initials}
-            </span>
+            </Link>
+            <button
+              className="ml-1 whitespace-nowrap text-[11px] font-semibold text-primary hover:underline"
+              onClick={onLogout}
+              type="button"
+            >
+              Cerrar sesión
+            </button>
           </div>
         </div>
       </div>

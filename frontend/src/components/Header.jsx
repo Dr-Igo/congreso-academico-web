@@ -1,4 +1,5 @@
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { clearSession, getSession, ROLE_LABELS } from '../lib/auth'
 
 const navClassName = ({ isActive }) =>
   isActive ? 'nav-link nav-link--active' : 'nav-link'
@@ -6,10 +7,10 @@ const navClassName = ({ isActive }) =>
 function Header() {
   const location = useLocation()
   const navigate = useNavigate()
-  const session = localStorage.getItem('congreso-session')
+  const session = getSession()
 
   const handleLogout = () => {
-    localStorage.removeItem('congreso-session')
+    clearSession()
     navigate('/', {
       replace: true,
       state: { successMessage: 'Sesión cerrada correctamente.' },
@@ -38,14 +39,34 @@ function Header() {
         <div className="content-container">
           <nav aria-label="Navegación principal">
             <NavLink className={navClassName} end to="/">Inicio</NavLink>
-            <a className="nav-link" href="/#bases">Bases del congreso</a>
-            <a className="nav-link" href="/#ejes">Ejes temáticos</a>
-            <a className="nav-link" href="/#programa">Programa</a>
+            {session ? (
+              <>
+                {(session.role === 'autor' || session.role === 'ambos') && (
+                  <NavLink className={navClassName} to="/mis-trabajos">Mis trabajos</NavLink>
+                )}
+                {(session.role === 'revisor' || session.role === 'ambos') && (
+                  <NavLink className={navClassName} to="/bandeja-revisor">Bandeja del revisor</NavLink>
+                )}
+                {session.role === 'comite' && (
+                  <>
+                    <NavLink className={navClassName} to="/configuracion-edicion">Configuración</NavLink>
+                    <NavLink className={navClassName} to="/gestion-revisiones">Revisiones</NavLink>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                <a className="nav-link" href="/#bases">Bases del congreso</a>
+                <a className="nav-link" href="/#ejes">Ejes temáticos</a>
+                <a className="nav-link" href="/#programa">Programa</a>
+              </>
+            )}
           </nav>
           <div className="header-actions">
             {session ? (
               <>
-                <span className="session-label" key={location.key}>Sesión activa</span>
+                <span className="session-label" key={location.key}>{ROLE_LABELS[session.role]}</span>
+                <NavLink className={navClassName} to="/mi-cuenta">Mi cuenta</NavLink>
                 <button className="button button--small button--secondary" onClick={handleLogout} type="button">
                   Cerrar sesión
                 </button>

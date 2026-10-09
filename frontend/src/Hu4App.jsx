@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './components/hu4/hu4.css'
 import Footer from './components/hu4/Footer.jsx'
 import Header from './components/hu4/Header.jsx'
@@ -7,12 +8,14 @@ import { Container } from './components/hu4/PageHeader.jsx'
 import ToastHost from './components/hu4/Toast.jsx'
 import { REVIEWERS, REVIEWS, TODAY, WORKS } from './data/seed.js'
 import { plural } from './lib/utils.js'
+import { clearSession } from './lib/auth.js'
 import PlaceholderView from './pages/hu4/PlaceholderView.jsx'
 import ReviewersView from './pages/hu4/ReviewersView.jsx'
 import TrackingView from './pages/hu4/TrackingView.jsx'
 import WorksView from './pages/hu4/WorksView.jsx'
 
 export default function App() {
+  const routeNavigate = useNavigate()
   const [view, setView] = useState('works')
   const [works, setWorks] = useState(WORKS)
   const [reviewers, setReviewers] = useState(REVIEWERS)
@@ -80,7 +83,15 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header active={view} onNavigate={setView} editionState={editionState} />
+      <Header
+        active={view}
+        onNavigate={setView}
+        editionState={editionState}
+        onLogout={() => {
+          clearSession()
+          routeNavigate('/')
+        }}
+      />
 
       <main className="flex-1 py-6">
         <Container>
