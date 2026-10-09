@@ -6,6 +6,7 @@ import PasswordRecoveryPage from './pages/PasswordRecoveryPage'
 import RegisterPage from './pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
 import Hu3Page from './historias/hu3/Hu3Page'
+import ConfiguracionPage from './historias/hu2/ConfiguracionPage'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/iniciar-sesion" element={<LoginPage />} />
         <Route path="/recuperar-contrasena" element={<PasswordRecoveryPage />} />
         <Route path="/registro" element={<RegisterPage />} />
+	<Route path="/configuracion-edicion" element={<ConfiguracionPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

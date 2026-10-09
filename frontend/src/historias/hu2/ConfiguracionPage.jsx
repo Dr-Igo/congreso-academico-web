@@ -1,4 +1,5 @@
 import { useState } from "react"
+import "./hu2.css"
 import PestanaEdicion from "./PestanaEdicion"
 import PestanaFechas from "./PestanaFechas"
 import PestanaCriterios from "./PestanaCriterios"
@@ -17,7 +18,7 @@ export default function ConfiguracionPage() {
   const [activa, setActiva] = useState("edicion")
 
   return (
-    <div>
+    <div className="hu2-scope">
       <h1 className="text-3xl font-bold">Configuración de la edición</h1>
       <p className="text-suave mb-4">Defina la edición vigente antes de abrir la recepción de trabajos.</p>
 

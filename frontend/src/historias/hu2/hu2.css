@@ -1,0 +1,10 @@
+@tailwind components;
+@tailwind utilities;
+.hu2-scope {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 60vh;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
