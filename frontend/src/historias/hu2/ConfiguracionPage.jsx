@@ -1,48 +1,60 @@
 import { useState } from "react"
-import PestanaEdicion from "./PestanaEdicion"
-import PestanaFechas from "./PestanaFechas"
-import PestanaCriterios from "./PestanaCriterios"
-import PestanaEjes from "./PestanaEjes"
-import PestanaTipos from "./PestanaTipos"
-
-const pestanas = [
-  { id: "edicion", nombre: "Edición" },
-  { id: "ejes", nombre: "Ejes temáticos" },
-  { id: "tipos", nombre: "Tipos de trabajo" },
-  { id: "fechas", nombre: "Fechas límite" },
-  { id: "criterios", nombre: "Criterios de evaluación" },
-]
+import "./ConfiguracionPage.css"
+import {
+  EDICION_INICIAL,
+  EJES_INICIALES,
+  TIPOS_INICIALES,
+  FECHAS_INICIALES,
+  CRITERIOS_INICIALES,
+} from "./datos"
+import PestanaEdicion from "./pestanas/PestanaEdicion"
+import PestanaEjes from "./pestanas/PestanaEjes"
+import PestanaTipos from "./pestanas/PestanaTipos"
+import PestanaFechas from "./pestanas/PestanaFechas"
+import PestanaCriterios from "./pestanas/PestanaCriterios"
 
 export default function ConfiguracionPage() {
+  // Los datos viven aquí, para que el resumen de "Edición" vea lo que cambian las otras pestañas
   const [activa, setActiva] = useState("edicion")
+  const [edicion, setEdicion] = useState(EDICION_INICIAL)
+  const [ejes, setEjes] = useState(EJES_INICIALES)
+  const [tipos, setTipos] = useState(TIPOS_INICIALES)
+  const [fechas, setFechas] = useState(FECHAS_INICIALES)
+  const [criterios, setCriterios] = useState(CRITERIOS_INICIALES)
+  const [estado, setEstado] = useState("abierta") // "abierta" o "revision"
+  const [mensaje, setMensaje] = useState("")
+
+  // Muestra un aviso verde abajo durante 3 segundos
+  function avisar(texto) {
+    setMensaje(texto)
+    setTimeout(() => setMensaje(""), 3000)
+  }
+
+  const comunes = { activa, onCambiar: setActiva, avisar }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Configuración de la edición</h1>
-      <p className="text-suave mb-4">Defina la edición vigente antes de abrir la recepción de trabajos.</p>
+    <div className="cfg">
+      {activa === "edicion" && (
+        <PestanaEdicion
+          {...comunes}
+          edicion={edicion}
+          setEdicion={setEdicion}
+          ejes={ejes}
+          tipos={tipos}
+          fechas={fechas}
+          criterios={criterios}
+          estado={estado}
+          onCerrarRecepcion={() => setEstado("revision")}
+        />
+      )}
+      {activa === "ejes" && <PestanaEjes {...comunes} ejes={ejes} setEjes={setEjes} />}
+      {activa === "tipos" && <PestanaTipos {...comunes} tipos={tipos} setTipos={setTipos} />}
+      {activa === "fechas" && <PestanaFechas {...comunes} fechas={fechas} setFechas={setFechas} />}
+      {activa === "criterios" && (
+        <PestanaCriterios {...comunes} criterios={criterios} setCriterios={setCriterios} />
+      )}
 
-      <div className="flex gap-6 border-b border-borde mb-6">
-        {pestanas.map((p) => (
-          <button
-            key={p.id}
-            onClick={() => setActiva(p.id)}
-            className={
-              "pb-2 cursor-pointer " +
-              (activa === p.id
-                ? "border-b-2 border-primary text-primary font-semibold"
-                : "text-suave hover:text-texto")
-            }
-          >
-            {p.nombre}
-          </button>
-        ))}
-      </div>
-
-      {activa === "edicion" && <PestanaEdicion />}
-      {activa === "ejes" && <PestanaEjes />}
-      {activa === "tipos" && <PestanaTipos />}
-      {activa === "fechas" && <PestanaFechas />}
-      {activa === "criterios" && <PestanaCriterios />}
+      {mensaje && <div className="cfg-toast">{mensaje}</div>}
     </div>
   )
 }
