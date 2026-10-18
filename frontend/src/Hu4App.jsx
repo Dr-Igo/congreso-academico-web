@@ -81,11 +81,20 @@ export default function App() {
   const tab = TABS.find((t) => t.key === view)
   const editionState = view === 'works' && demoEmpty ? 'Recepción abierta' : 'En revisión'
 
+  const handleNavigation = (nextView) => {
+    if (nextView === 'config') {
+      routeNavigate('/configuracion-edicion')
+      return
+    }
+
+    setView(nextView)
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header
         active={view}
-        onNavigate={setView}
+        onNavigate={handleNavigation}
         editionState={editionState}
         onLogout={() => {
           clearSession()
