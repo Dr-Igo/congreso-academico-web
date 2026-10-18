@@ -1,3 +1,6 @@
+@tailwind components;
+@tailwind utilities;
+
 .hu4-scope {
   --primary: #7a2231;
   --primary-dark: #5c1925;
