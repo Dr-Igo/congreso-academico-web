@@ -10,6 +10,7 @@ import { StatusBadge } from '../../components/hu4/Badge.jsx'
 import AssignModal from '../../components/hu4/AssignModal.jsx'
 import { AXES, DRAFTS_OUT, MAX_REVIEWERS, RECEPTION_DEADLINE, WORK_STATES, WORK_TYPES } from '../../data/seed.js'
 import { downloadCsv, fmtDate, norm, plural } from '../../lib/utils.js'
+import { ConsolidadoTrabajo } from '../ConsolidadoTrabajo';
 
 const PAGE_SIZE = 8
 
@@ -28,6 +29,7 @@ export default function WorksView({ works, reviews, reviewers, demoEmpty, onAssi
   const [page, setPage] = useState(1)
   const [selected, setSelected] = useState([])
   const [assigning, setAssigning] = useState(null) // trabajos que se están asignando
+  const [trabajoConsolidado, setTrabajoConsolidado] = useState(null);
 
   const list = useMemo(() => (demoEmpty ? [] : works), [demoEmpty, works])
   const reviewsOf = (workId) => reviews.filter((r) => r.workId === workId)
@@ -107,7 +109,9 @@ export default function WorksView({ works, reviews, reviewers, demoEmpty, onAssi
   const subtitle = list.length
     ? `${list.length + DRAFTS_OUT} trabajos · ${list.length} enviados · ${plural(DRAFTS_OUT, 'borrador', 'borradores')} fuera de proceso`
     : 'Sin trabajos enviados por el momento'
-
+  if (trabajoConsolidado) {
+    return <ConsolidadoTrabajo trabajo={trabajoConsolidado} onVolver={() => setTrabajoConsolidado(null)} />;
+  }
   return (
     <>
       <PageHeader
@@ -199,7 +203,14 @@ export default function WorksView({ works, reviews, reviewers, demoEmpty, onAssi
                       <td className="px-3 py-2.5 align-top">
                         <Checkbox label={`Seleccionar ${w.code}`} title={reason ?? undefined} checked={isSel} disabled={!!reason} onChange={() => toggleOne(w.id)} />
                       </td>
-                      <td className="whitespace-nowrap px-3 py-2.5 align-top font-semibold text-ink">{w.code}</td>
+                      <td 
+                       className="whitespace-nowrap px-3 py-2.5 align-top font-bold text-[#7A2231] underline cursor-pointer hover:text-[#5C1925]"
+                        onClick={() => setTrabajoConsolidado(w)}
+                        title="Abrir consolidado de evaluación"
+                      >
+                        {w.code}
+                      </td>
+                      
                       <td className="max-w-[320px] px-3 py-2.5 align-top">
                         <p className="font-semibold leading-snug text-ink">{w.title}</p>
                         <p className="mt-0.5 text-[11px] text-muted">{w.author}</p>
