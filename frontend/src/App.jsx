@@ -1,5 +1,5 @@
-import Hu4App from './Hu4App.jsx'
+import AssignmentsPage from "./pages/hu4/AssignmentsPage.jsx";
 
 export default function App() {
-  return <Hu4App />
+  return <AssignmentsPage />;
 }
