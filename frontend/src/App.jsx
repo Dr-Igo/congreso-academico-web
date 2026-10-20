@@ -7,7 +7,7 @@ import RegisterPage from './pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
 import Hu3Page from './historias/hu3/Hu3Page'
 import ConfiguracionPage from './historias/hu2/ConfiguracionPage'
-import Hu4App from './Hu4App'
+import AssignmentsPage from './pages/hu4/AssignmentsPage'
 import { BandejaRevisor } from './pages/BandejaRevisor'
 import DemoPage from './pages/DemoPage'
 import AccountPage from './pages/AccountPage'
@@ -32,8 +32,8 @@ function App() {
         path="/gestion-revisiones"
         element={
           <ProtectedRoute allowedRoles={['comite']}>
-            <div className="hu4-scope tailwind-scope">
-              <Hu4App />
+            <div className="hu4-assignments-scope">
+              <AssignmentsPage />
             </div>
           </ProtectedRoute>
         }

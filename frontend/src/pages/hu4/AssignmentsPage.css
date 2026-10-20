@@ -1,0 +1,1229 @@
+
+.hu4-assignments-scope *,
+.hu4-assignments-scope *::before,
+.hu4-assignments-scope *::after {
+  box-sizing: border-box;
+}
+
+.hu4-assignments-scope body {
+  margin: 0;
+}
+
+/* ---------- Página y contenedor ---------- */
+
+.hu4-assignments-scope .pagina {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 452px; /* alto del pie en móvil: el pie queda pegado al fondo de la ventana */
+  background-color: #fbfaf8;
+  color: #1f1a1b;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.hu4-assignments-scope .contenedor {
+  position: relative;
+  width: 94%;
+  margin: 0 auto;
+}
+
+.hu4-assignments-scope .principal {
+  padding: 24px 0 32px 0;
+}
+
+/* ---------- Barra superior (granate) ---------- */
+
+.hu4-assignments-scope .barra-superior {
+  background-color: #7a2231;
+  color: #ffffff;
+}
+
+.hu4-assignments-scope .barra-superior .contenedor {
+  height: 56px;
+}
+
+.hu4-assignments-scope .logo {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  background-color: #a67c2e;
+  color: #ffffff;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 32px;
+  text-align: center;
+}
+
+.hu4-assignments-scope .marca {
+  position: absolute;
+  top: 9px;
+  left: 44px;
+}
+
+.hu4-assignments-scope .marca-titulo {
+  margin: 0;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.hu4-assignments-scope .marca-sub {
+  margin: 2px 0 0 0;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #e9d4d8;
+}
+
+.hu4-assignments-scope .estado-edicion {
+  position: absolute;
+  top: 16px;
+  right: 0;
+  font-size: 11px;
+}
+
+.hu4-assignments-scope .estado-edicion-etiqueta {
+  display: none;
+  margin-right: 10px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #e9d4d8;
+}
+
+.hu4-assignments-scope .estado-edicion-valor {
+  background-color: #ffffff;
+  color: #1f1a1b;
+  padding: 4px 8px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .punto-estado {
+  color: #b7791f;
+  margin-right: 4px;
+}
+
+/* ---------- Barra de navegación (pestañas) ---------- */
+
+.hu4-assignments-scope .barra-nav {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e4dfda;
+}
+
+.hu4-assignments-scope .pestana {
+  background-color: #ffffff;
+  border: none;
+  border-bottom: 2px solid #ffffff;
+  padding: 14px 12px 12px 0;
+  margin-right: 6px;
+  color: #1f1a1b;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.hu4-assignments-scope .pestana:hover {
+  color: #7a2231;
+}
+
+.hu4-assignments-scope .pestana-activa {
+  border-bottom: 2px solid #7a2231;
+  color: #7a2231;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .usuario {
+  display: none;
+}
+
+.hu4-assignments-scope .usuario-texto {
+  margin-right: 38px;
+  text-align: right;
+}
+
+.hu4-assignments-scope .usuario-nombre {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .usuario-rol {
+  margin: 0;
+  font-size: 10px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .avatar {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  background-color: #f6e9ec;
+  color: #7a2231;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 28px;
+  text-align: center;
+}
+
+/* ---------- Encabezado de cada vista ---------- */
+
+.hu4-assignments-scope .encabezado-pagina {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.hu4-assignments-scope .titulo-pagina {
+  margin: 0;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #7a2231;
+}
+
+.hu4-assignments-scope .subtitulo-pagina {
+  margin: 2px 0 0 0;
+  font-size: 12px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .encabezado-acciones {
+  margin-top: 10px;
+}
+
+/* ---------- Botones ---------- */
+
+.hu4-assignments-scope .boton {
+  margin: 0 8px 8px 0;
+  padding: 9px 16px;
+  border: 1px solid #7a2231;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .boton-primario {
+  background-color: #7a2231;
+  color: #ffffff;
+}
+
+.hu4-assignments-scope .boton-primario:hover {
+  background-color: #5c1925;
+  border-color: #5c1925;
+}
+
+.hu4-assignments-scope .boton-primario:disabled {
+  background-color: #cdb0b6;
+  border-color: #cdb0b6;
+  color: #ffffff;
+}
+
+.hu4-assignments-scope .boton-secundario {
+  background-color: #ffffff;
+  color: #7a2231;
+}
+
+.hu4-assignments-scope .boton-secundario:hover {
+  background-color: #f6e9ec;
+}
+
+.hu4-assignments-scope .boton-secundario:disabled {
+  background-color: #ffffff;
+  border-color: #e0d2d5;
+  color: #b9a0a5;
+}
+
+.hu4-assignments-scope .boton-advertencia {
+  background-color: #b7791f;
+  border-color: #b7791f;
+  color: #ffffff;
+}
+
+.hu4-assignments-scope .boton-advertencia:hover {
+  background-color: #8f5d16;
+  border-color: #8f5d16;
+}
+
+.hu4-assignments-scope .boton-peligro {
+  background-color: #b4322b;
+  border-color: #b4322b;
+  color: #ffffff;
+}
+
+.hu4-assignments-scope .boton-peligro:hover {
+  background-color: #8e251f;
+  border-color: #8e251f;
+}
+
+.hu4-assignments-scope .boton-peligro:disabled {
+  background-color: #dbb0ad;
+  border-color: #dbb0ad;
+}
+
+/* ---------- Tarjetas de métricas (4.1) ---------- */
+
+.hu4-assignments-scope .metricas {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.hu4-assignments-scope .metrica {
+  height: 72px;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  background-color: #ffffff;
+  border: 1px solid #e4dfda;
+  border-top: 3px solid #3b6fa8;
+}
+
+.hu4-assignments-scope .metrica-revision {
+  border-top-color: #b7791f;
+}
+
+.hu4-assignments-scope .metrica-sin-revisores {
+  border-top-color: #b4322b;
+}
+
+.hu4-assignments-scope .metrica-decision {
+  border-top-color: #1e7f4d;
+}
+
+.hu4-assignments-scope .metrica-etiqueta {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .metrica-valor {
+  margin: 2px 0 0 0;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+/* ---------- Filtros, búsqueda y chips ---------- */
+
+.hu4-assignments-scope .filtros {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.hu4-assignments-scope .control {
+  width: 100%;
+  height: 36px;
+  margin: 0 8px 8px 0;
+  padding: 0 8px;
+  background-color: #ffffff;
+  border: 1px solid #e4dfda;
+  color: #1f1a1b;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.hu4-assignments-scope .control:hover {
+  border-color: #6f6663;
+}
+
+.hu4-assignments-scope .buscador {
+  width: 100%;
+}
+
+.hu4-assignments-scope .chips {
+  margin-bottom: 12px;
+  font-size: 12px;
+  line-height: 2.2;
+}
+
+.hu4-assignments-scope .chips-titulo {
+  margin-right: 8px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .chip {
+  margin-right: 8px;
+  padding: 4px 8px;
+  background-color: #f6e9ec;
+  border: 1px solid #d9b6bd;
+  color: #7a2231;
+  font-weight: 500;
+}
+
+.hu4-assignments-scope .chip-quitar {
+  margin-left: 6px;
+  padding: 0;
+  background-color: #f6e9ec;
+  border: none;
+  color: #7a2231;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.hu4-assignments-scope .enlace-limpiar {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  color: #7a2231;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.hu4-assignments-scope .filtro-vencidas {
+  height: 36px;
+  margin: 0 8px 8px 0;
+  padding: 0 12px;
+  background-color: #f6e9ec;
+  border: 1px solid #d9b6bd;
+  color: #7a2231;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .filtro-vencidas-activo {
+  background-color: #7a2231;
+  border-color: #7a2231;
+  color: #ffffff;
+}
+
+/* ---------- Tablas ---------- */
+
+.hu4-assignments-scope .tarjeta-tabla {
+  background-color: #ffffff;
+  border: 1px solid #e4dfda;
+}
+
+.hu4-assignments-scope .tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.hu4-assignments-scope .tabla th {
+  padding: 10px 8px;
+  background-color: #fbfaf8;
+  border-bottom: 1px solid #e4dfda;
+  color: #6f6663;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.hu4-assignments-scope .tabla td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #e4dfda;
+  text-align: left;
+}
+
+.hu4-assignments-scope .tabla .derecha {
+  text-align: right;
+}
+
+.hu4-assignments-scope .col-casilla {
+  width: 36px;
+}
+
+.hu4-assignments-scope .fila-seleccionada {
+  background-color: #f6e9ec;
+}
+
+.hu4-assignments-scope .fila-vencida {
+  background-color: #fbeae8;
+}
+
+.hu4-assignments-scope .fila-coautor {
+  background-color: #fbeae8;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .fila-institucion {
+  background-color: #fbf3e4;
+}
+
+.hu4-assignments-scope .texto-fuerte {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.hu4-assignments-scope .enlace-consolidado {
+  border: 0;
+  padding: 0;
+  color: #7a2231;
+  background: transparent;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.hu4-assignments-scope .enlace-consolidado:hover {
+  color: #5c1925;
+}
+
+.hu4-assignments-scope .texto-apagado {
+  margin: 2px 0 0 0;
+  font-size: 11px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .texto-peligro {
+  color: #b4322b;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .texto-exito {
+  color: #1e7f4d;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .texto-advertencia {
+  color: #b7791f;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .sin-resultados {
+  padding: 40px 16px;
+  text-align: center;
+  color: #6f6663;
+}
+
+/* ---------- Insignias de estado ---------- */
+
+.hu4-assignments-scope .insignia {
+  padding: 2px 8px;
+  border: 1px solid #6f6663;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .insignia-enviado {
+  background-color: #e8eff6;
+  border-color: #3b6fa8;
+  color: #3b6fa8;
+}
+
+.hu4-assignments-scope .insignia-revision,
+.hu4-assignments-scope .insignia-pendiente {
+  background-color: #fbf3e4;
+  border-color: #b7791f;
+  color: #b7791f;
+}
+
+.hu4-assignments-scope .insignia-aceptado {
+  background-color: #e6f3ec;
+  border-color: #1e7f4d;
+  color: #1e7f4d;
+}
+
+.hu4-assignments-scope .insignia-rechazado,
+.hu4-assignments-scope .insignia-vencida {
+  background-color: #ffffff;
+  border-color: #b4322b;
+  color: #b4322b;
+}
+
+/* ---------- Paginación ---------- */
+
+.hu4-assignments-scope .paginacion {
+  position: relative;
+  padding: 12px 16px;
+  background-color: #fbfaf8;
+  border-top: 1px solid #e4dfda;
+  font-size: 12px;
+}
+
+.hu4-assignments-scope .paginacion-resumen {
+  margin: 0 0 8px 0;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .paginacion-botones {
+  text-align: left;
+}
+
+.hu4-assignments-scope .pagina-boton {
+  margin-right: 6px;
+  padding: 5px 10px;
+  background-color: #ffffff;
+  border: 1px solid #e4dfda;
+  color: #1f1a1b;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.hu4-assignments-scope .pagina-boton:hover {
+  border-color: #6f6663;
+}
+
+.hu4-assignments-scope .pagina-boton:disabled {
+  color: #b9b2ae;
+}
+
+.hu4-assignments-scope .pagina-boton-activa {
+  background-color: #7a2231;
+  border-color: #7a2231;
+  color: #ffffff;
+}
+
+/* ---------- Estado vacío ---------- */
+
+.hu4-assignments-scope .vacio {
+  padding: 48px 24px;
+  background-color: #ffffff;
+  border: 1px solid #e4dfda;
+  text-align: center;
+}
+
+.hu4-assignments-scope .vacio-icono {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 16px auto;
+  background-color: #fbfaf8;
+  border: 1px solid #e4dfda;
+  color: #7a2231;
+  font-size: 22px;
+  line-height: 50px;
+  text-align: center;
+}
+
+.hu4-assignments-scope .vacio-titulo {
+  margin: 0 0 6px 0;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .vacio-texto {
+  width: 90%;
+  margin: 0 auto 16px auto;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .demo {
+  margin-top: 20px;
+  font-size: 11px;
+  color: #6f6663;
+}
+
+/* ---------- Seguimiento (4.4) ---------- */
+
+.hu4-assignments-scope .banner-alerta {
+  position: relative;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  background-color: #fbeae8;
+  border: 1px solid #e6b8b4;
+  color: #b4322b;
+  font-size: 13px;
+}
+
+.hu4-assignments-scope .banner-alerta p {
+  margin: 0 0 10px 0;
+}
+
+.hu4-assignments-scope .banner-alerta .boton {
+  margin-bottom: 0;
+}
+
+.hu4-assignments-scope .banner-ok {
+  background-color: #e6f3ec;
+  border-color: #9fd0b6;
+  color: #1e7f4d;
+}
+
+.hu4-assignments-scope .resumen {
+  position: relative;
+  margin-top: 16px;
+}
+
+.hu4-assignments-scope .resumen-item {
+  position: relative;
+  height: 52px;
+  margin-bottom: 8px;
+  padding: 16px;
+  background-color: #ffffff;
+  border: 1px solid #e4dfda;
+  font-size: 12px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .resumen-valor {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .accion {
+  margin-left: 12px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  color: #7a2231;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .accion:hover {
+  text-decoration: underline;
+}
+
+.hu4-assignments-scope .accion:disabled {
+  color: #6f6663;
+  text-decoration: none;
+}
+
+.hu4-assignments-scope .accion-peligro {
+  color: #b4322b;
+}
+
+.hu4-assignments-scope .accion-suave {
+  color: #6f6663;
+}
+
+/* ---------- Modales (4.2 y reasignación) ---------- */
+
+.hu4-assignments-scope .fondo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(31 26 27 / 55%);
+  z-index: 100;
+}
+
+.hu4-assignments-scope .modal {
+  position: absolute;
+  top: 40px;
+  left: 3%;
+  width: 94%;
+  background-color: #ffffff;
+  border: 1px solid #e4dfda;
+  border-top: 2px solid #7a2231;
+}
+
+.hu4-assignments-scope .modal-cabecera {
+  position: relative;
+  padding: 16px 48px 12px 20px;
+  border-bottom: 1px solid #e4dfda;
+}
+
+.hu4-assignments-scope .modal-titulo {
+  margin: 0;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .modal-subtitulo {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .modal-subtitulo strong {
+  color: #1f1a1b;
+}
+
+.hu4-assignments-scope .modal-cerrar {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  padding: 2px 6px;
+  background-color: #ffffff;
+  border: none;
+  color: #1f1a1b;
+  font-size: 18px;
+}
+
+.hu4-assignments-scope .modal-cerrar:hover {
+  background-color: #f6e9ec;
+}
+
+.hu4-assignments-scope .modal-cuerpo {
+  padding: 16px 20px;
+}
+
+.hu4-assignments-scope .modal-pie {
+  position: relative;
+  padding: 12px 20px;
+  border-top: 1px solid #e4dfda;
+}
+
+.hu4-assignments-scope .modal-mensaje {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .modal-mensaje-error {
+  color: #b4322b;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .modal-botones {
+  text-align: right;
+}
+
+.hu4-assignments-scope .modal-botones .boton {
+  margin: 0 0 0 8px;
+}
+
+.hu4-assignments-scope .alerta-conflicto {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background-color: #fbeae8;
+  border: 1px solid #e6b8b4;
+  color: #b4322b;
+  font-size: 12px;
+}
+
+.hu4-assignments-scope .fila-busqueda {
+  margin-bottom: 12px;
+}
+
+.hu4-assignments-scope .regla {
+  display: block;
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .modal .tabla {
+  border: 1px solid #e4dfda;
+}
+
+.hu4-assignments-scope .conflicto-ninguno {
+  color: #1e7f4d;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .conflicto-coautor {
+  color: #b4322b;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .conflicto-institucion {
+  color: #b7791f;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .conflicto-asignado {
+  color: #6f6663;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .conflicto-detalle {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .casilla-institucion {
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #b7791f;
+}
+
+.hu4-assignments-scope .campo {
+  margin-top: 14px;
+}
+
+.hu4-assignments-scope .campo-etiqueta {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #6f6663;
+}
+
+.hu4-assignments-scope .campo .control {
+  margin-right: 0;
+}
+
+.hu4-assignments-scope .campo-texto {
+  width: 100%;
+  padding: 8px 10px;
+  background-color: #ffffff;
+  border: 1px solid #e4dfda;
+  color: #1f1a1b;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.hu4-assignments-scope .opciones-radio label {
+  display: inline;
+  margin-right: 18px;
+  font-size: 13px;
+}
+
+.hu4-assignments-scope .datos-revision {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  background-color: #fbfaf8;
+  border: 1px solid #e4dfda;
+  font-size: 12px;
+}
+
+.hu4-assignments-scope .datos-revision p {
+  margin: 0 0 4px 0;
+}
+
+.hu4-assignments-scope .aviso-modal {
+  margin-top: 14px;
+  padding: 10px 12px;
+  background-color: #fbf3e4;
+  border: 1px solid #e0c48f;
+  color: #b7791f;
+  font-size: 12px;
+}
+
+/* ---------- Aviso de éxito (toast) ---------- */
+
+.hu4-assignments-scope .aviso {
+  position: fixed;
+  left: 3%;
+  bottom: 16px;
+  width: 94%;
+  padding: 12px 40px 12px 14px;
+  background-color: #e6f3ec;
+  border: 1px solid #1e7f4d;
+  border-left: 4px solid #1e7f4d;
+  color: #1e7f4d;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 200;
+}
+
+.hu4-assignments-scope .aviso p {
+  margin: 0;
+}
+
+.hu4-assignments-scope .aviso-cerrar {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  padding: 0 4px;
+  background-color: transparent;
+  border: none;
+  color: #1e7f4d;
+  font-size: 16px;
+}
+
+/* ---------- Pie de página ---------- */
+
+.hu4-assignments-scope .pie-pagina {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1f1a1b;
+  color: #ffffff;
+}
+
+.hu4-assignments-scope .pie-columnas {
+  position: relative;
+  padding: 28px 0 8px 0;
+}
+
+.hu4-assignments-scope .pie-columna {
+  margin-bottom: 16px;
+}
+
+.hu4-assignments-scope .pie-marca {
+  margin: 0 0 8px 0;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.hu4-assignments-scope .pie-titulo {
+  margin: 0 0 8px 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #a67c2e;
+}
+
+.hu4-assignments-scope .pie-texto {
+  margin: 0 0 4px 0;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #d6d1ce;
+}
+
+.hu4-assignments-scope .pie-legal {
+  position: relative;
+  padding: 12px 0;
+  border-top: 1px solid #3a3435;
+  font-size: 10px;
+  color: #a8a19e;
+}
+
+.hu4-assignments-scope .pie-legal p {
+  margin: 0 0 4px 0;
+}
+
+/*
+   Media queries (mobile-first)
+   */
+
+/* En pantallas pequeñas se ocultan las columnas secundarias de las tablas */
+@media (max-width: 767px) {
+  .hu4-assignments-scope .columna-secundaria {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .hu4-assignments-scope .estado-edicion-etiqueta {
+    display: inline;
+  }
+
+  .hu4-assignments-scope .aviso {
+    left: auto;
+    right: 16px;
+    width: 380px;
+  }
+}
+
+@media (min-width: 768px) {
+  .hu4-assignments-scope .tabla th,
+  .hu4-assignments-scope .tabla td {
+    padding: 10px 12px;
+  }
+}
+
+@media (min-width: 900px) {
+  .hu4-assignments-scope .pagina {
+    padding-bottom: 170px; /* alto del pie en escritorio */
+  }
+
+  .hu4-assignments-scope .usuario {
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 0;
+  }
+
+  .hu4-assignments-scope .pestana {
+    padding: 14px 14px 12px 14px;
+    margin-right: 0;
+  }
+
+  .hu4-assignments-scope .pestana:first-child {
+    padding-left: 0;
+  }
+
+  /* botones alineados a la derecha del título */
+  .hu4-assignments-scope .encabezado-acciones {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 0;
+    text-align: right;
+  }
+
+  .hu4-assignments-scope .encabezado-acciones .boton {
+    margin: 0 0 0 8px;
+  }
+
+  /* cuatro tarjetas de métricas en una fila */
+  .hu4-assignments-scope .metricas {
+    height: 72px;
+  }
+
+  .hu4-assignments-scope .metrica {
+    position: absolute;
+    top: 0;
+    width: 24.25%;
+    margin-bottom: 0;
+  }
+
+  .hu4-assignments-scope .metrica-enviados {
+    left: 0;
+  }
+
+  .hu4-assignments-scope .metrica-revision {
+    left: 25.25%;
+  }
+
+  .hu4-assignments-scope .metrica-sin-revisores {
+    left: 50.5%;
+  }
+
+  .hu4-assignments-scope .metrica-decision {
+    left: 75.75%;
+  }
+
+  /* filtros en una fila, buscador a la derecha */
+  .hu4-assignments-scope .filtros {
+    height: 44px;
+  }
+
+  .hu4-assignments-scope .control {
+    width: 200px;
+  }
+
+  .hu4-assignments-scope .buscador {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 290px;
+    margin-right: 0;
+  }
+
+  /* paginación: resumen a la izquierda, botones a la derecha */
+  .hu4-assignments-scope .paginacion-resumen {
+    position: absolute;
+    top: 18px;
+    left: 16px;
+    margin: 0;
+  }
+
+  .hu4-assignments-scope .paginacion-botones {
+    text-align: right;
+  }
+
+  .hu4-assignments-scope .vacio-texto {
+    width: 420px;
+  }
+
+  /* modales centrados */
+  .hu4-assignments-scope .modal {
+    left: 50%;
+    width: 820px;
+    margin-left: -410px;
+  }
+
+  .hu4-assignments-scope .modal-chico {
+    width: 560px;
+    margin-left: -280px;
+  }
+
+  .hu4-assignments-scope .fila-busqueda .control {
+    width: 62%;
+    margin-bottom: 0;
+  }
+
+  .hu4-assignments-scope .regla {
+    display: inline;
+    margin-left: 8px;
+  }
+
+  .hu4-assignments-scope .modal-mensaje {
+    position: absolute;
+    top: 22px;
+    left: 20px;
+    width: 50%;
+    margin: 0;
+  }
+
+  .hu4-assignments-scope .campo .control {
+    width: 220px;
+  }
+
+
+  /* banner de seguimiento: botón a la derecha, centrado en la franja */
+  .hu4-assignments-scope .banner-alerta {
+    height: 56px;
+    padding: 0 14px;
+  }
+
+  .hu4-assignments-scope .banner-alerta p {
+    margin: 0;
+    padding-top: 19px;
+  }
+
+  .hu4-assignments-scope .banner-alerta .boton {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    margin: 0;
+  }
+
+  /* tres resúmenes en una fila */
+  .hu4-assignments-scope .resumen {
+    height: 52px;
+  }
+
+  .hu4-assignments-scope .resumen-item {
+    position: absolute;
+    top: 0;
+    width: 32.6%;
+    margin-bottom: 0;
+  }
+
+  .hu4-assignments-scope .resumen-entregadas {
+    left: 0;
+  }
+
+  .hu4-assignments-scope .resumen-plazo {
+    left: 33.7%;
+  }
+
+  .hu4-assignments-scope .resumen-vencidas {
+    left: 67.4%;
+  }
+
+  /* pie de página en cuatro columnas */
+  .hu4-assignments-scope .pie-columnas {
+    height: 130px;
+  }
+
+  .hu4-assignments-scope .pie-columna {
+    position: absolute;
+    top: 28px;
+  }
+
+  .hu4-assignments-scope .pie-col-marca {
+    left: 0;
+    width: 32%;
+  }
+
+  .hu4-assignments-scope .pie-col-congreso {
+    left: 41%;
+  }
+
+  .hu4-assignments-scope .pie-col-participantes {
+    left: 61%;
+  }
+
+  .hu4-assignments-scope .pie-col-contacto {
+    left: 81%;
+  }
+
+  .hu4-assignments-scope .pie-legal {
+    height: 40px;
+  }
+
+  .hu4-assignments-scope .pie-legal-izquierda {
+    position: absolute;
+    top: 12px;
+    left: 0;
+  }
+
+  .hu4-assignments-scope .pie-legal-derecha {
+    position: absolute;
+    top: 12px;
+    right: 0;
+  }
+}
