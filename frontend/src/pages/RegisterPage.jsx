@@ -3,36 +3,49 @@ import { Link, useNavigate } from 'react-router-dom'
 import { saveAccount, saveSession } from '../lib/auth'
 
 const initialForm = {
-  firstName: '',
-  lastName: '',
-  email: '',
+  firstName: 'Rosa María',
+  lastName: 'Quispe Tito',
+  email: 'rosa.quispe@aloe.ulima.edu.pe',
   institution: 'Universidad de Lima',
-  career: '',
-  studentCode: '',
-  password: '',
-  confirmPassword: '',
+  career: 'Ingeniería de Sistemas',
+  studentCode: '20211547',
+  password: 'React2026',
+  confirmPassword: 'React2026',
   role: 'autor',
   acceptedTerms: false,
 }
 
+const institutionalEmail = /^[^\s@]+@(aloe\.)?ulima\.edu\.pe$/i
+
+function fieldError(name, form) {
+  if (name === 'firstName' && !form.firstName.trim()) return 'Este campo es obligatorio.'
+  if (name === 'lastName' && !form.lastName.trim()) return 'Este campo es obligatorio.'
+  if (name === 'email' && !institutionalEmail.test(form.email)) {
+    return 'Use un correo institucional válido (@aloe.ulima.edu.pe).'
+  }
+  if (name === 'career' && form.role !== 'revisor' && !form.career) {
+    return 'Seleccione su carrera.'
+  }
+  if (
+    name === 'password'
+    && (form.password.length < 8 || !/[A-Z]/.test(form.password) || !/\d/.test(form.password))
+  ) {
+    return 'Use al menos 8 caracteres, una mayúscula y un número.'
+  }
+  if (name === 'confirmPassword' && form.confirmPassword !== form.password) {
+    return 'Las contraseñas no coinciden.'
+  }
+  return ''
+}
+
 function validate(form) {
   const errors = {}
-  const institutionalEmail = /^[^\s@]+@(aloe\.)?ulima\.edu\.pe$/i
+  const fields = ['firstName', 'lastName', 'email', 'career', 'password', 'confirmPassword']
 
-  if (!form.firstName.trim()) errors.firstName = 'Ingrese sus nombres.'
-  if (!form.lastName.trim()) errors.lastName = 'Ingrese sus apellidos.'
-  if (!form.email.trim()) errors.email = 'Ingrese su correo institucional.'
-  else if (!institutionalEmail.test(form.email)) {
-    errors.email = 'Use un correo institucional válido de la Universidad de Lima.'
-  }
-  if (!form.career) errors.career = 'Seleccione su carrera.'
-  if (form.password.length < 8 || !/[A-Z]/.test(form.password) || !/\d/.test(form.password)) {
-    errors.password = 'Use al menos 8 caracteres, una mayúscula y un número.'
-  }
-  if (form.confirmPassword !== form.password) {
-    errors.confirmPassword = 'Las contraseñas no coinciden.'
-  }
-  if (!form.acceptedTerms) errors.acceptedTerms = 'Debe aceptar las bases del congreso.'
+  fields.forEach((name) => {
+    const error = fieldError(name, form)
+    if (error) errors[name] = error
+  })
 
   return errors
 }
@@ -46,7 +59,24 @@ function RegisterPage() {
   const handleChange = (event) => {
     const { name, value, checked, type } = event.target
     setForm((current) => ({ ...current, [name]: type === 'checkbox' ? checked : value }))
-    setErrors((current) => ({ ...current, [name]: undefined }))
+    setErrors((current) => {
+      const next = { ...current }
+      delete next[name]
+      if (name === 'role' && value === 'revisor') delete next.career
+      return next
+    })
+  }
+
+  const handleBlur = (event) => {
+    const name = event.target.name
+    const error = fieldError(name, form)
+
+    setErrors((current) => {
+      const next = { ...current }
+      if (error) next[name] = error
+      else delete next[name]
+      return next
+    })
   }
 
   const handleSubmit = (event) => {
@@ -61,8 +91,8 @@ function RegisterPage() {
       firstName: form.firstName.trim(),
       lastName: form.lastName.trim(),
       institution: form.institution,
-      career: form.career,
-      studentCode: form.studentCode.trim(),
+      career: form.role === 'revisor' ? '' : form.career,
+      studentCode: form.role === 'revisor' ? '' : form.studentCode.trim(),
       password: form.password,
       role: form.role,
       interests: [],
@@ -82,201 +112,231 @@ function RegisterPage() {
   }
 
   const errorCount = Object.keys(errors).length
+  const validPassword = !fieldError('password', form)
+  const matchingPasswords = form.password === form.confirmPassword && form.confirmPassword !== ''
 
   return (
-    <section className="auth-section auth-section--wide">
-      <div className="auth-card">
-        <div className="registration-form">
-          <div className="auth-heading">
-            <p className="eyebrow eyebrow--dark">Nuevo participante</p>
-            <h1>Registro de participante</h1>
-            <p>Los campos marcados con asterisco son obligatorios.</p>
-          </div>
+    <section className="hu1-register-page">
+      <div className="hu1-register-layout">
+        <div className="hu1-register-main">
+          <h1 className="hu1-page-title">Registro de participante</h1>
+          <p className="hu1-page-subtitle">Los campos marcados con asterisco son obligatorios.</p>
 
           {errorCount > 0 && (
-            <div className="notification notification--error" role="alert">
+            <div className="hu1-notice hu1-notice--error" role="alert">
               <span aria-hidden="true">!</span>
-              Revise {errorCount} {errorCount === 1 ? 'campo' : 'campos'} antes de continuar.
+              <span>Revise {errorCount} {errorCount === 1 ? 'campo' : 'campos'} con errores antes de continuar.</span>
             </div>
           )}
 
-        <form noValidate onSubmit={handleSubmit}>
-          <div className="form-grid">
-            <div className="field">
-              <label htmlFor="firstName">Nombres *</label>
-              <input
-                aria-invalid={Boolean(errors.firstName)}
-                id="firstName"
-                name="firstName"
-                onChange={handleChange}
-                value={form.firstName}
-              />
-              {errors.firstName && <span className="field-error">{errors.firstName}</span>}
-            </div>
-
-            <div className="field">
-              <label htmlFor="lastName">Apellidos *</label>
-              <input
-                aria-invalid={Boolean(errors.lastName)}
-                id="lastName"
-                name="lastName"
-                onChange={handleChange}
-                value={form.lastName}
-              />
-              {errors.lastName && <span className="field-error">{errors.lastName}</span>}
-            </div>
-
-            <div className="field">
-              <label htmlFor="registerEmail">Correo institucional *</label>
-              <input
-                aria-invalid={Boolean(errors.email)}
-                id="registerEmail"
-                name="email"
-                onChange={handleChange}
-                placeholder="nombre@aloe.ulima.edu.pe"
-                type="email"
-                value={form.email}
-              />
-              {errors.email ? (
-                <span className="field-error">{errors.email}</span>
-              ) : (
-                <span className="field-help">Se usará para las comunicaciones del congreso.</span>
-              )}
-            </div>
-
-            <div className="field">
-              <label htmlFor="institution">Institución *</label>
-              <select id="institution" name="institution" onChange={handleChange} value={form.institution}>
-                <option>Universidad de Lima</option>
-                <option>Pontificia Universidad Católica del Perú</option>
-                <option>Universidad Nacional de Ingeniería</option>
-              </select>
-            </div>
-
-            <div className="field">
-              <label htmlFor="career">Carrera *</label>
-              <select
-                aria-invalid={Boolean(errors.career)}
-                id="career"
-                name="career"
-                onChange={handleChange}
-                value={form.career}
-              >
-                <option value="">Seleccione una carrera</option>
-                <option>Ingeniería de Sistemas</option>
-                <option>Ingeniería Industrial</option>
-                <option>Comunicación</option>
-                <option>Economía</option>
-              </select>
-              {errors.career && <span className="field-error">{errors.career}</span>}
-            </div>
-
-            <div className="field">
-              <label htmlFor="studentCode">Código de alumno</label>
-              <input
-                id="studentCode"
-                inputMode="numeric"
-                name="studentCode"
-                onChange={handleChange}
-                value={form.studentCode}
-              />
-            </div>
-
-            <div className="field">
-              <label htmlFor="registerPassword">Contraseña *</label>
-              <div className="password-input">
+          <form noValidate onSubmit={handleSubmit}>
+            <div className="hu1-form-grid">
+              <div className="hu1-field">
+                <label htmlFor="firstName">Nombres *</label>
                 <input
-                  aria-invalid={Boolean(errors.password)}
-                  id="registerPassword"
-                  name="password"
+                  aria-invalid={Boolean(errors.firstName)}
+                  id="firstName"
+                  name="firstName"
+                  onBlur={handleBlur}
                   onChange={handleChange}
-                  type={showPassword ? 'text' : 'password'}
-                  value={form.password}
+                  value={form.firstName}
                 />
-                <button
-                  className="password-toggle"
-                  onClick={() => setShowPassword((current) => !current)}
-                  type="button"
-                >
-                  {showPassword ? 'Ocultar' : 'Mostrar'}
-                </button>
+                {errors.firstName && <span className="hu1-field-error">{errors.firstName}</span>}
               </div>
-              {errors.password ? (
-                <span className="field-error">{errors.password}</span>
-              ) : (
-                <span className="field-help">Mínimo 8 caracteres, una mayúscula y un número.</span>
-              )}
-            </div>
 
-            <div className="field">
-              <label htmlFor="confirmPassword">Confirmar contraseña *</label>
-              <input
-                aria-invalid={Boolean(errors.confirmPassword)}
-                id="confirmPassword"
-                name="confirmPassword"
-                onChange={handleChange}
-                type="password"
-                value={form.confirmPassword}
-              />
-              {errors.confirmPassword && <span className="field-error">{errors.confirmPassword}</span>}
-            </div>
-          </div>
+              <div className="hu1-field">
+                <label htmlFor="lastName">Apellidos *</label>
+                <input
+                  aria-invalid={Boolean(errors.lastName)}
+                  id="lastName"
+                  name="lastName"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={form.lastName}
+                />
+                {errors.lastName && <span className="hu1-field-error">{errors.lastName}</span>}
+              </div>
 
-          <fieldset className="role-fieldset">
-            <legend>Deseo participar como *</legend>
-            <div className="role-options">
-              {[
-                ['autor', 'Autor', 'Enviaré uno o más trabajos.'],
-                ['revisor', 'Revisor', 'Evaluaré trabajos asignados.'],
-                ['ambos', 'Ambos', 'Participaré como autor y revisor.'],
-              ].map(([value, title, description]) => (
-                <label className="role-option" key={value}>
+              <div className="hu1-field">
+                <label htmlFor="registerEmail">Correo institucional *</label>
+                <input
+                  aria-invalid={Boolean(errors.email)}
+                  id="registerEmail"
+                  name="email"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="email"
+                  value={form.email}
+                />
+                {errors.email ? (
+                  <span className="hu1-field-error">{errors.email}</span>
+                ) : (
+                  <span className="hu1-field-help">Se usará para todas las notificaciones.</span>
+                )}
+              </div>
+
+              <div className="hu1-field">
+                <label htmlFor="institution">Institución *</label>
+                <select id="institution" name="institution" onChange={handleChange} value={form.institution}>
+                  <option>Universidad de Lima</option>
+                  <option>Pontificia Universidad Católica del Perú</option>
+                  <option>Universidad Nacional de Ingeniería</option>
+                </select>
+              </div>
+
+              <div className="hu1-field">
+                <label htmlFor="registerPassword">Contraseña *</label>
+                <div className="hu1-password-field">
                   <input
-                    checked={form.role === value}
-                    name="role"
+                    aria-invalid={Boolean(errors.password)}
+                    className={errorCount > 0 && validPassword ? 'hu1-valid-field' : ''}
+                    id="registerPassword"
+                    name="password"
+                    onBlur={handleBlur}
                     onChange={handleChange}
-                    type="radio"
-                    value={value}
+                    type={showPassword ? 'text' : 'password'}
+                    value={form.password}
                   />
-                  <span><strong>{title}</strong><small>{description}</small></span>
-                </label>
-              ))}
+                  <button
+                    className="hu1-password-toggle"
+                    onClick={() => setShowPassword((current) => !current)}
+                    type="button"
+                  >
+                    {showPassword ? 'Ocultar' : 'Mostrar'}
+                  </button>
+                </div>
+                {errors.password ? (
+                  <span className="hu1-field-error">{errors.password}</span>
+                ) : errorCount > 0 ? (
+                  <span className="hu1-valid-text">Contraseña segura.</span>
+                ) : (
+                  <span className="hu1-field-help">Mínimo 8 caracteres, una mayúscula y un número.</span>
+                )}
+              </div>
+
+              <div className="hu1-field">
+                <label htmlFor="confirmPassword">Confirmar contraseña *</label>
+                <input
+                  aria-invalid={Boolean(errors.confirmPassword)}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="password"
+                  value={form.confirmPassword}
+                />
+                {errors.confirmPassword && <span className="hu1-field-error">{errors.confirmPassword}</span>}
+              </div>
+
+              {form.role !== 'revisor' && (
+                <>
+                  <div className="hu1-field">
+                    <label htmlFor="career">Carrera *</label>
+                    <select
+                      aria-invalid={Boolean(errors.career)}
+                      id="career"
+                      name="career"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={form.career}
+                    >
+                      <option value="">Seleccione una carrera</option>
+                      <option>Ingeniería de Sistemas</option>
+                      <option>Ingeniería Industrial</option>
+                      <option>Comunicación</option>
+                      <option>Economía</option>
+                    </select>
+                    {errors.career && <span className="hu1-field-error">{errors.career}</span>}
+                  </div>
+
+                  <div className="hu1-field">
+                    <label htmlFor="studentCode">Código de alumno</label>
+                    <input
+                      id="studentCode"
+                      inputMode="numeric"
+                      name="studentCode"
+                      onChange={handleChange}
+                      value={form.studentCode}
+                    />
+                  </div>
+                </>
+              )}
+
+              <fieldset className="hu1-fieldset">
+                <legend>Deseo participar como *</legend>
+                <div className="hu1-role-options">
+                  {[
+                    ['autor', 'Autor', 'Enviaré uno o más trabajos.'],
+                    ['revisor', 'Revisor', 'Evaluaré trabajos asignados.'],
+                    ['ambos', 'Ambos', 'Participaré como autor y revisor.'],
+                  ].map(([value, title, description]) => (
+                    <label
+                      className={`hu1-role-option${form.role === value ? ' hu1-role-option--selected' : ''}`}
+                      key={value}
+                    >
+                      <input
+                        checked={form.role === value}
+                        name="role"
+                        onChange={handleChange}
+                        type="radio"
+                        value={value}
+                      />
+                      <span><strong>{title}</strong><small>{description}</small></span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              <label className="hu1-checkbox hu1-terms">
+                <input
+                  checked={form.acceptedTerms}
+                  name="acceptedTerms"
+                  onChange={handleChange}
+                  type="checkbox"
+                />
+                Acepto las bases del congreso y el tratamiento de mis datos.
+              </label>
+
+              <div className="hu1-form-actions hu1-form-actions--full">
+                <Link className="hu1-button hu1-button--outline" to="/">Cancelar</Link>
+                <button className="hu1-button hu1-button--primary" type="submit">Crear mi cuenta</button>
+              </div>
             </div>
-          </fieldset>
-
-          <label className="checkbox-label terms-check">
-            <input
-              checked={form.acceptedTerms}
-              name="acceptedTerms"
-              onChange={handleChange}
-              type="checkbox"
-            />
-            Acepto las bases del congreso y el tratamiento de mis datos.
-          </label>
-          {errors.acceptedTerms && <span className="field-error">{errors.acceptedTerms}</span>}
-
-          <div className="form-actions">
-            <Link className="button button--secondary" to="/">Cancelar</Link>
-            <button className="button button--primary" type="submit">Crear mi cuenta</button>
-          </div>
-        </form>
-
-          <p className="auth-footer-text">
-            ¿Ya tiene una cuenta? <Link to="/iniciar-sesion">Iniciar sesión</Link>
-          </p>
+          </form>
         </div>
 
-        <aside className="registration-aside">
-          <p className="eyebrow">Antes de registrarse</p>
-          <h2>Prepare sus datos</h2>
-          <p>
-            La recepción de trabajos cierra el 30/09/2026 a las 23:59. Después de esa
-            fecha no será posible editar los envíos.
-          </p>
-          <p>
-            Si participa como revisor, deberá declarar sus líneas de interés para recibir
-            asignaciones relacionadas con su experiencia.
-          </p>
+        <aside className="hu1-register-aside">
+          {errorCount > 0 ? (
+            <>
+              <h2>Requisitos de la contraseña</h2>
+              <ul className="hu1-password-checks">
+                <li className={form.password.length >= 8 ? '' : 'hu1-check--error'}>
+                  {form.password.length >= 8 ? '✓' : '×'} Mínimo 8 caracteres
+                </li>
+                <li className={/[A-Z]/.test(form.password) ? '' : 'hu1-check--error'}>
+                  {/[A-Z]/.test(form.password) ? '✓' : '×'} Al menos una mayúscula
+                </li>
+                <li className={/\d/.test(form.password) ? '' : 'hu1-check--error'}>
+                  {/\d/.test(form.password) ? '✓' : '×'} Al menos un número
+                </li>
+                <li className={matchingPasswords ? '' : 'hu1-check--error'}>
+                  {matchingPasswords ? '✓' : '×'} La confirmación debe coincidir
+                </li>
+              </ul>
+            </>
+          ) : (
+            <>
+              <h2>Antes de registrarse</h2>
+              <p>
+                La recepción de trabajos cierra el 30/09/2026 a las 23:59. Después de esa fecha
+                no será posible editar los envíos.
+              </p>
+              <p>
+                Si participa como revisor, deberá declarar sus líneas de interés para recibir
+                asignaciones relacionadas con su experiencia.
+              </p>
+            </>
+          )}
         </aside>
       </div>
     </section>

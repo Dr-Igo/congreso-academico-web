@@ -3,23 +3,28 @@ import {
   getAccountByEmail,
   getSession,
   REVIEW_INTERESTS,
-  ROLE_LABELS,
   saveAccount,
   saveSession,
 } from '../lib/auth'
 
 function createProfile(session) {
   const storedAccount = getAccountByEmail(session.email)
+  const reviewerDemo = session.email === 'luis.ramirez@ulima.edu.pe'
+  const authorDemo = session.email === 'rosa.quispe@aloe.ulima.edu.pe'
   const nameParts = session.name?.trim().split(/\s+/) ?? []
 
   return {
-    firstName: storedAccount?.firstName || nameParts[0] || '',
-    lastName: storedAccount?.lastName || nameParts.slice(1).join(' ') || '',
+    firstName: storedAccount?.firstName || (reviewerDemo ? 'Luis Fernando' : authorDemo ? 'Rosa María' : nameParts[0] || ''),
+    lastName: storedAccount?.lastName || (reviewerDemo ? 'Ramírez Cárdenas' : authorDemo ? 'Quispe Tito' : nameParts.slice(1).join(' ') || ''),
     email: storedAccount?.email || session.email,
     institution: storedAccount?.institution || 'Universidad de Lima',
     career: storedAccount?.career || 'Ingeniería de Sistemas',
-    studentCode: storedAccount?.studentCode || '',
-    interests: storedAccount?.interests || [],
+    studentCode: storedAccount?.studentCode || (authorDemo ? '20211547' : ''),
+    interests: storedAccount?.interests?.length
+      ? storedAccount.interests
+      : reviewerDemo
+        ? [REVIEW_INTERESTS[0], REVIEW_INTERESTS[1], REVIEW_INTERESTS[3]]
+        : [],
     password: storedAccount?.password || '',
     role: session.role,
   }
@@ -58,9 +63,6 @@ function AccountPage() {
 
     if (!profile.firstName.trim()) nextErrors.firstName = 'Ingrese sus nombres.'
     if (!profile.lastName.trim()) nextErrors.lastName = 'Ingrese sus apellidos.'
-    if (!/^[^\s@]+@(aloe\.)?ulima\.edu\.pe$/i.test(profile.email)) {
-      nextErrors.email = 'Ingrese un correo institucional válido.'
-    }
     if (canReview && profile.interests.length === 0) {
       nextErrors.interests = 'Seleccione al menos una línea de interés.'
     }
@@ -75,11 +77,9 @@ function AccountPage() {
       ...profile,
       firstName: profile.firstName.trim(),
       lastName: profile.lastName.trim(),
-      email: profile.email.trim().toLowerCase(),
     }
     const nextSession = {
       ...session,
-      email: normalizedProfile.email,
       name: `${normalizedProfile.firstName} ${normalizedProfile.lastName}`,
     }
 
@@ -87,6 +87,13 @@ function AccountPage() {
     saveSession(nextSession)
     setProfile(normalizedProfile)
     setProfileMessage({ type: 'success', text: 'Los datos de su cuenta se guardaron correctamente.' })
+  }
+
+  const handlePasswordChange = (event) => {
+    const { name, value } = event.target
+    setPasswordForm((current) => ({ ...current, [name]: value }))
+    setErrors((current) => ({ ...current, [name]: undefined }))
+    setPasswordMessage(null)
   }
 
   const changePassword = (event) => {
@@ -118,149 +125,173 @@ function AccountPage() {
     setPasswordMessage({ type: 'success', text: 'La contraseña se actualizó correctamente.' })
   }
 
-  const handlePasswordChange = (event) => {
-    const { name, value } = event.target
-    setPasswordForm((current) => ({ ...current, [name]: value }))
-    setErrors((current) => ({ ...current, [name]: undefined }))
-    setPasswordMessage(null)
-  }
-
   return (
-    <section className="account-page">
-      <div className="content-container">
-        <div className="account-heading">
+    <section className="hu1-account-page">
+      <div className="hu1-account-content">
+        <div className="hu1-account-heading">
           <div>
-            <p className="eyebrow eyebrow--dark">Cuenta y acceso</p>
-            <h1>Mi cuenta</h1>
-            <p>Actualice sus datos personales, preferencias y contraseña.</p>
+            <h1 className="hu1-page-title">Mi cuenta</h1>
+            <p className="hu1-page-subtitle">Datos personales, líneas de interés y seguridad.</p>
           </div>
-          <span className="role-badge">{ROLE_LABELS[profile.role]}</span>
+          <button className="hu1-button hu1-button--primary" form="profile-form" type="submit">
+            Guardar cambios
+          </button>
         </div>
 
-        <div className="account-layout">
-          <div className="account-main">
-            <form className="account-panel" noValidate onSubmit={saveProfile}>
-              <div className="panel-title">
-                <div><h2>Datos personales</h2><p>Información utilizada en las comunicaciones del congreso.</p></div>
-              </div>
+        <div className="hu1-account-layout">
+          <div className="hu1-account-column">
+            <form className="hu1-account-panel" id="profile-form" noValidate onSubmit={saveProfile}>
+              <h2>Datos personales</h2>
 
               {profileMessage && (
-                <div className={`notification notification--${profileMessage.type}`} role="status">
-                  {profileMessage.text}
+                <div className={`hu1-notice hu1-notice--${profileMessage.type}`} role="status">
+                  <span aria-hidden="true">{profileMessage.type === 'success' ? '✓' : '!'}</span>
+                  <span>{profileMessage.text}</span>
                 </div>
               )}
 
-              <div className="form-grid">
-                <div className="field">
-                  <label htmlFor="accountFirstName">Nombres *</label>
-                  <input id="accountFirstName" name="firstName" onChange={handleProfileChange} value={profile.firstName} />
-                  {errors.firstName && <span className="field-error">{errors.firstName}</span>}
+              <div className="hu1-form-grid">
+                <div className="hu1-field">
+                  <label htmlFor="accountFirstName">Nombres</label>
+                  <input
+                    aria-invalid={Boolean(errors.firstName)}
+                    id="accountFirstName"
+                    name="firstName"
+                    onChange={handleProfileChange}
+                    value={profile.firstName}
+                  />
+                  {errors.firstName && <span className="hu1-field-error">{errors.firstName}</span>}
                 </div>
-                <div className="field">
-                  <label htmlFor="accountLastName">Apellidos *</label>
-                  <input id="accountLastName" name="lastName" onChange={handleProfileChange} value={profile.lastName} />
-                  {errors.lastName && <span className="field-error">{errors.lastName}</span>}
+                <div className="hu1-field">
+                  <label htmlFor="accountLastName">Apellidos</label>
+                  <input
+                    aria-invalid={Boolean(errors.lastName)}
+                    id="accountLastName"
+                    name="lastName"
+                    onChange={handleProfileChange}
+                    value={profile.lastName}
+                  />
+                  {errors.lastName && <span className="hu1-field-error">{errors.lastName}</span>}
                 </div>
-                <div className="field field--full">
-                  <label htmlFor="accountEmail">Correo institucional *</label>
-                  <input id="accountEmail" name="email" onChange={handleProfileChange} type="email" value={profile.email} />
-                  {errors.email && <span className="field-error">{errors.email}</span>}
+                <div className="hu1-field">
+                  <label htmlFor="accountEmail">Correo institucional</label>
+                  <input
+                    className="hu1-account-email"
+                    id="accountEmail"
+                    readOnly
+                    type="email"
+                    value={profile.email}
+                  />
                 </div>
-                <div className="field">
+                <div className="hu1-field">
                   <label htmlFor="accountInstitution">Institución</label>
-                  <input id="accountInstitution" name="institution" onChange={handleProfileChange} value={profile.institution} />
+                  <input
+                    id="accountInstitution"
+                    name="institution"
+                    onChange={handleProfileChange}
+                    value={profile.institution}
+                  />
                 </div>
-                {profile.role !== 'comite' && (
-                  <>
-                    <div className="field">
-                      <label htmlFor="accountCareer">Carrera</label>
-                      <input id="accountCareer" name="career" onChange={handleProfileChange} value={profile.career} />
-                    </div>
-                    <div className="field">
-                      <label htmlFor="accountStudentCode">Código de alumno</label>
-                      <input id="accountStudentCode" name="studentCode" onChange={handleProfileChange} value={profile.studentCode} />
-                    </div>
-                  </>
-                )}
+                <p className="hu1-account-help">Para cambiarlo, escriba al comité organizador.</p>
               </div>
+            </form>
 
-              {canReview && (
-                <fieldset className="interest-fieldset">
-                  <legend>Líneas de interés para revisión *</legend>
-                  <p>Estas preferencias ayudan al comité a asignarle trabajos relacionados con su experiencia.</p>
-                  <div className="interest-grid">
-                    {REVIEW_INTERESTS.map((interest) => (
-                      <label className="interest-option" key={interest}>
-                        <input
-                          checked={profile.interests.includes(interest)}
-                          onChange={() => toggleInterest(interest)}
-                          type="checkbox"
-                        />
-                        <span>{interest}</span>
-                      </label>
-                    ))}
+            {canReview && (
+              <section className="hu1-account-panel">
+                <div className="hu1-interest-heading">
+                  <div>
+                    <h2>Líneas de interés como revisor</h2>
                   </div>
-                  {errors.interests && <span className="field-error">{errors.interests}</span>}
-                </fieldset>
-              )}
-
-              <div className="form-actions">
-                <button className="button button--primary" type="submit">Guardar cambios</button>
-              </div>
-            </form>
-
-            <form className="account-panel" noValidate onSubmit={changePassword}>
-              <div className="panel-title">
-                <div><h2>Cambiar contraseña</h2><p>Utilice una contraseña distinta a la anterior.</p></div>
-              </div>
-
-              {passwordMessage && (
-                <div className={`notification notification--${passwordMessage.type}`} role="status">
-                  {passwordMessage.text}
+                  <span>{profile.interests.length} de {REVIEW_INTERESTS.length} seleccionadas</span>
                 </div>
-              )}
-
-              <div className="form-grid">
-                <div className="field field--full">
-                  <label htmlFor="currentPassword">Contraseña actual</label>
-                  <input id="currentPassword" name="current" onChange={handlePasswordChange} type="password" value={passwordForm.current} />
-                  {errors.current && <span className="field-error">{errors.current}</span>}
+                <p className="hu1-interest-description">Las asignaciones priorizan sus líneas declaradas.</p>
+                <div className="hu1-interest-options">
+                  {REVIEW_INTERESTS.map((interest) => {
+                    const selected = profile.interests.includes(interest)
+                    return (
+                      <button
+                        className={`hu1-interest-option${selected ? ' hu1-interest-option--selected' : ''}`}
+                        key={interest}
+                        onClick={() => toggleInterest(interest)}
+                        type="button"
+                      >
+                        {interest}{selected ? ' ✓' : ''}
+                      </button>
+                    )
+                  })}
                 </div>
-                <div className="field">
-                  <label htmlFor="nextPassword">Nueva contraseña</label>
-                  <input id="nextPassword" name="next" onChange={handlePasswordChange} type="password" value={passwordForm.next} />
-                  {errors.next && <span className="field-error">{errors.next}</span>}
-                </div>
-                <div className="field">
-                  <label htmlFor="confirmAccountPassword">Confirmar contraseña</label>
-                  <input id="confirmAccountPassword" name="confirm" onChange={handlePasswordChange} type="password" value={passwordForm.confirm} />
-                  {errors.confirm && <span className="field-error">{errors.confirm}</span>}
-                </div>
-              </div>
-              <div className="form-actions">
-                <button className="button button--secondary" type="submit">Actualizar contraseña</button>
-              </div>
-            </form>
+                {errors.interests && <p className="hu1-field-error">{errors.interests}</p>}
+              </section>
+            )}
           </div>
 
-          <aside className="account-sidebar">
-            <div className="account-panel account-summary">
-              <span className="account-avatar" aria-hidden="true">
-                {profile.firstName.slice(0, 1)}{profile.lastName.slice(0, 1)}
-              </span>
-              <h2>{profile.firstName} {profile.lastName}</h2>
-              <p>{profile.email}</p>
-              <span className="role-badge">{ROLE_LABELS[profile.role]}</span>
-            </div>
-            <div className="account-panel activity-summary">
-              <h2>Actividad de la cuenta</h2>
-              <dl>
-                <div><dt>Edición vigente</dt><dd>2026</dd></div>
-                <div><dt>Estado</dt><dd className="status-active">Activa</dd></div>
-                {canReview && <div><dt>Líneas seleccionadas</dt><dd>{profile.interests.length}</dd></div>}
-              </dl>
-            </div>
-          </aside>
+          <div className="hu1-account-column">
+            <form className="hu1-account-panel hu1-account-password" noValidate onSubmit={changePassword}>
+              <h2>Cambiar contraseña</h2>
+
+              {passwordMessage && (
+                <div className={`hu1-notice hu1-notice--${passwordMessage.type}`} role="status">
+                  <span aria-hidden="true">{passwordMessage.type === 'success' ? '✓' : '!'}</span>
+                  <span>{passwordMessage.text}</span>
+                </div>
+              )}
+
+              <div className="hu1-field">
+                <label htmlFor="currentPassword">Contraseña actual</label>
+                <input
+                  aria-invalid={Boolean(errors.current)}
+                  id="currentPassword"
+                  name="current"
+                  onChange={handlePasswordChange}
+                  type="password"
+                  value={passwordForm.current}
+                />
+                {errors.current && <span className="hu1-field-error">{errors.current}</span>}
+              </div>
+              <div className="hu1-field">
+                <label htmlFor="nextPassword">Nueva contraseña</label>
+                <input
+                  aria-invalid={Boolean(errors.next)}
+                  id="nextPassword"
+                  name="next"
+                  onChange={handlePasswordChange}
+                  type="password"
+                  value={passwordForm.next}
+                />
+                {errors.next ? (
+                  <span className="hu1-field-error">{errors.next}</span>
+                ) : (
+                  <span className="hu1-field-help">Mínimo 8 caracteres, una mayúscula y un número.</span>
+                )}
+              </div>
+              <div className="hu1-field">
+                <label htmlFor="confirmAccountPassword">Confirmar nueva contraseña</label>
+                <input
+                  aria-invalid={Boolean(errors.confirm)}
+                  id="confirmAccountPassword"
+                  name="confirm"
+                  onChange={handlePasswordChange}
+                  type="password"
+                  value={passwordForm.confirm}
+                />
+                {errors.confirm && <span className="hu1-field-error">{errors.confirm}</span>}
+              </div>
+              <button className="hu1-button hu1-button--outline hu1-button--full" type="submit">
+                Actualizar contraseña
+              </button>
+            </form>
+
+            {canReview && (
+              <section className="hu1-account-panel">
+                <span className="hu1-activity-title">Mi actividad</span>
+                <dl className="hu1-activity-list">
+                  <div><dt>Revisiones asignadas</dt><dd>6</dd></div>
+                  <div><dt>Revisiones entregadas</dt><dd className="hu1-activity-success">4</dd></div>
+                  <div><dt>Pendientes</dt><dd className="hu1-activity-warning">2</dd></div>
+                </dl>
+              </section>
+            )}
+          </div>
         </div>
       </div>
     </section>

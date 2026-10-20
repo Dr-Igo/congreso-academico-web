@@ -15,6 +15,7 @@ import AccessDeniedPage from './pages/AccessDeniedPage'
 import CommitteeInvitationPage from './pages/CommitteeInvitationPage'
 import RegistrationSuccessPage from './pages/RegistrationSuccessPage'
 import ProtectedRoute from './components/ProtectedRoute'
+import Hu1Layout from './historias/hu1/Hu1Layout'
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
         }
       />
 
-      <Route element={<Layout />}>
+      <Route element={<Hu1Layout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/iniciar-sesion" element={<LoginPage />} />
         <Route path="/recuperar-contrasena" element={<PasswordRecoveryPage />} />
@@ -61,6 +62,10 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+
+      <Route element={<Layout />}>
         <Route
           path="/configuracion-edicion"
           element={
@@ -80,7 +85,6 @@ function App() {
           }
         />
         <Route path="/demo" element={<DemoPage />} />
-        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   )
