@@ -1,16 +1,3 @@
-/* =====================================================================
-   AssignmentsPage.css  ·  HU-4 Asignación de revisiones
-   CSS puro (hoja externa). Solo se usan recursos vistos en clase:
-   selectores de tipo / clase / pseudo-clase, color y fondo, tipografía,
-   listas y tablas, modelo de cajas, position, display y media queries
-   (mobile-first con min-width).
-
-   Paleta del proyecto
-     Primary       #7A2231     Primary dark  #5C1925    Primary soft #F6E9EC
-     Accent        #A67C2E     Fondo         #FBFAF8    Superficie   #FFFFFF
-     Borde         #E4DFDA     Texto         #1F1A1B    Texto suave  #6F6663
-     Éxito         #1E7F4D     Advertencia   #B7791F    Peligro      #B4322B
-   ===================================================================== */
 
 *,
 *::before,
@@ -982,9 +969,9 @@ body {
   margin: 0 0 4px 0;
 }
 
-/* =====================================================================
+/* 
    Media queries (mobile-first)
-   ===================================================================== */
+   */
 
 /* En pantallas pequeñas se ocultan las columnas secundarias de las tablas */
 @media (max-width: 767px) {
