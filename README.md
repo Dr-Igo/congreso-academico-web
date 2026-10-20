@@ -31,8 +31,14 @@ Luego abra `http://localhost:5173` en el navegador.
 
 ## Datos para la demostración
 
-- Correo: `rosa.quispe@aloe.ulima.edu.pe`
-- Contraseña: `React2026`
+| Rol | Correo | Contraseña |
+| --- | --- | --- |
+| Autor | `rosa.quispe@aloe.ulima.edu.pe` | `React2026` |
+| Revisor | `luis.ramirez@ulima.edu.pe` | `Revisar2026` |
+| Comité organizador | `comite@ulima.edu.pe` | `Comite2026` |
+
+Cada cuenta redirige automáticamente a las pantallas correspondientes a su rol.
+
 - Código de recuperación: `123456`
 
 También se puede crear una cuenta nueva desde el formulario de registro y usarla
