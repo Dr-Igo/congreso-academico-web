@@ -1,18 +1,11 @@
-// AssignmentsPage.jsx · HU-4 Asignación de revisiones (Comité organizador)
-//
-// Solo se usa lo visto en clase:
-//  - React: componentes, props, children, useState, renderizado condicional,
-//    listas con key, formularios controlados, estado inmutable y levantar el estado.
-//  - JavaScript: let/const, template literals, if/else, ternario, for/while,
-//    arreglos (map, filter, forEach, reduce, includes, slice, splice, join, push),
-//    objetos, spread, ?? y ?., Math, Number, split, trim, toLowerCase.
-//  - CSS externo en AssignmentsPage.css (sin Tailwind).
+// HU-4 Asignación de revisiones (Comité organizador)
+
 import { useState } from "react";
 import "./AssignmentsPage.css";
 
-/* ====================================================================
+/* 
    1. DATOS DE EJEMPLO (todo el estado vive en el front)
-   ==================================================================== */
+  */
 
 const HOY = "2026-10-12"; // fecha de referencia fija para calcular los días de retraso
 const CIERRE_ETAPA = "2026-10-20";
