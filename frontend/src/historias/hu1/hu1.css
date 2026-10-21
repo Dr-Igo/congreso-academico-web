@@ -233,12 +233,13 @@
   font-size: 13px;
 }
 
-.hu1-button--primary {
+.hu1-shell .hu1-button--primary {
   color: #fff;
   background: var(--hu1-primary);
 }
 
-.hu1-button--primary:hover {
+.hu1-shell .hu1-button--primary:hover {
+  color: #fff;
   background: var(--hu1-primary-dark);
 }
 

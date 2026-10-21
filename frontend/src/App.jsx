@@ -8,7 +8,6 @@ import Hu3Page from './historias/hu3/Hu3Page'
 import ConfiguracionPage from './historias/hu2/ConfiguracionPage'
 import AssignmentsPage from './pages/hu4/AssignmentsPage'
 import { BandejaRevisor } from './pages/BandejaRevisor'
-import DemoPage from './pages/DemoPage'
 import AccountPage from './pages/AccountPage'
 import AccessDeniedPage from './pages/AccessDeniedPage'
 import CommitteeInvitationPage from './pages/CommitteeInvitationPage'
@@ -94,7 +93,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/demo" element={<DemoPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
