@@ -3,16 +3,44 @@
 Sistema web para gestionar un congreso académico estudiantil. El proyecto se está
 desarrollando con React y Vite.
 
-## Ejecutar el proyecto
-Requisitos: Node.js 20 o una versión posterior.
+## Instalación en una computadora nueva
+
+### Opción 1: Clonar el repositorio
+
+Requisitos:
+
+- Git.
+- Node.js 20 o superior.
+- npm, incluido con Node.js.
+
+Ejecute los siguientes comandos:
 
 ```bash
-cd frontend
+git clone https://github.com/Dr-Igo/congreso-academico-web.git
+cd congreso-academico-web/frontend
 npm install
 npm run dev
 ```
 
-Luego abra `http://localhost:5173` en el navegador.
+Luego abra en el navegador la dirección que aparece en la terminal, normalmente:
+
+`http://localhost:5173`
+
+### Opción 2: Instalar desde un archivo ZIP
+
+1. Descargue el proyecto como ZIP desde GitHub.
+2. Extraiga el archivo en una carpeta.
+3. Abra una terminal dentro de la carpeta `frontend`.
+4. Ejecute:
+
+```bash
+npm install
+npm run dev
+```
+
+5. Abra `http://localhost:5173` en el navegador.
+
+> `npm install` solo es necesario la primera vez o cuando cambian las dependencias.
 
 ## Datos para la demostración
 
@@ -24,15 +52,14 @@ Luego abra `http://localhost:5173` en el navegador.
 
 Cada cuenta redirige automáticamente a las pantallas correspondientes a su rol.
 
-- Código de recuperación: `123456`
-
-También se puede crear una cuenta nueva desde el formulario de registro y usarla
+También se puede crear una cuenta nueva desde el formulario de registro y utilizarla
 para iniciar sesión.
 
 ## Verificaciones
 
+Antes de entregar o subir cambios, ejecute desde la carpeta `frontend`:
+
 ```bash
-cd frontend
 npm run lint
 npm run build
 ```
