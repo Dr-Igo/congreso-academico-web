@@ -3,22 +3,7 @@
 Sistema web para gestionar un congreso académico estudiantil. El proyecto se está
 desarrollando con React y Vite.
 
-## Avance actual
-
-La rama `hu1-rodrigo` contiene el avance frontend de la HU-1 (Cuenta y acceso):
-
-- página pública del congreso;
-- registro de participantes con validaciones;
-- inicio y cierre de sesión simulados;
-- recuperación de contraseña en tres pasos;
-- página para rutas no encontradas;
-- diseño responsive basado en los mockups del proyecto.
-
-Los datos se guardan temporalmente en `localStorage`, porque esta primera entrega
-corresponde únicamente al frontend.
-
 ## Ejecutar el proyecto
-
 Requisitos: Node.js 20 o una versión posterior.
 
 ```bash
