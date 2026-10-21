@@ -20,3 +20,37 @@
   }
 }
 }
+
+/* HU3: ajustes de fidelidad con los mockups */
+.hu3-scope .empty-link{display:block;margin:12px auto 0;border:0;background:transparent;color:#7f1d2d;text-decoration:underline;cursor:pointer}
+.hu3-scope .write-notice{display:flex;align-items:center;gap:10px;border:1px solid #8bc7a5;background:#edf8f1;color:#226b45;padding:13px 16px;margin-bottom:18px}
+.hu3-scope .write-notice button{margin-left:auto;border:0;background:transparent;color:#226b45;text-decoration:underline;font-weight:700;cursor:pointer}
+.hu3-scope .compact-heading{margin-bottom:18px}
+.hu3-scope .draft-layout,.hu3-scope .decision-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(280px,.9fr);gap:20px;align-items:start}
+.hu3-scope .draft-summary{border-top:3px solid #7f1d2d}
+.hu3-scope .draft-data{display:grid;grid-template-columns:1fr 1fr;gap:22px 36px;margin:18px 0}
+.hu3-scope .draft-side,.hu3-scope .decision-side{display:grid;gap:14px}
+.hu3-scope .checklist{padding:20px}
+.hu3-scope .check-item{display:flex;gap:9px;align-items:center;margin:13px 0;font-size:14px}
+.hu3-scope .check-item.ok{color:#26704b}
+.hu3-scope .check-item.pending{color:#9a6b13}
+.hu3-scope .check-item>span{width:18px;display:flex;justify-content:center}
+.hu3-scope .draft-warning{border:1px solid #d7b56d;background:#fff8e8;color:#7b5a18;padding:16px;line-height:1.5}
+.hu3-scope .result-box{border:1px solid;padding:20px 22px;margin-bottom:16px}
+.hu3-scope .result-box.accepted{border-color:#65ad87;background:#edf8f1;color:#246b46}
+.hu3-scope .result-box.rejected{border-color:#c77777;background:#fff1f1;color:#8b2e2e}
+.hu3-scope .result-box h2{margin:8px 0 10px;font-family:'Source Serif 4',Georgia,serif}
+.hu3-scope .feedback-panel{border-top:3px solid #7f1d2d}
+.hu3-scope .score-card,.hu3-scope .next-card{padding:20px}
+.hu3-scope .criterion{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid #eee}
+.hu3-scope .criterion.total{margin-top:4px;border-bottom:0;border-top:1px solid #cfc8c5;font-weight:700}
+.hu3-scope .criterion.total strong{color:#26704b}
+.hu3-scope .next-card p{line-height:1.55}
+.hu3-scope .card-actions .danger-action,.hu3-scope .card-actions .danger-action:hover{color:var(--danger)}
+
+@media(max-width:850px){
+  .hu3-scope .draft-layout,.hu3-scope .decision-layout{grid-template-columns:1fr}
+  .hu3-scope .draft-data{grid-template-columns:1fr}
+  .hu3-scope .write-notice{align-items:flex-start;flex-wrap:wrap}
+  .hu3-scope .write-notice button{margin-left:29px}
+}
