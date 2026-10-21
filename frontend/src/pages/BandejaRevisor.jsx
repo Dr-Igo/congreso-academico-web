@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './BandejaRevisor.css'
 import { FormularioEvaluacion } from './FormularioEvaluacion'
 import { FormularioEvaluacionLectura } from './FormularioEvaluacionLectura'
@@ -119,6 +120,7 @@ function TarjetaTrabajo({ trabajo, onEvaluar }) {
 }
 
 export function BandejaRevisor() {
+  const navigate = useNavigate()
   const [filtro, setFiltro] = useState('todas')
   const [trabajos, setTrabajos] = useState(trabajosIniciales)
   const [trabajoAEvaluar, setTrabajoAEvaluar] = useState(null)
@@ -161,6 +163,39 @@ const manejarGuardadoDeEvaluacion = (payload) => {
       )
     )
     setTrabajoAEvaluar(null)
+  }
+
+  if (trabajos.length === 0) {
+    return (
+      <div className="bandeja-contenedor">
+        <div className="cabecera-bandeja">
+          <div>
+            <h1 style={{ fontSize: '28px', marginBottom: '8px', fontFamily: '"Source Serif 4", serif' }}>
+              Mi bandeja de revisión
+            </h1>
+            <p style={{ color: '#6F6663', fontSize: '15px' }}>
+              Sin trabajos asignados por ahora
+            </p>
+          </div>
+        </div>
+
+        <div className="tarjeta-vacia-contenedor">
+          <div className="check-box" aria-hidden="true">✓</div>
+          <h2>No tiene revisiones asignadas</h2>
+          <p>
+            El comité asigna los trabajos cuando cierra la recepción, el 30/09/2026.<br />
+            Mantenga sus líneas de interés actualizadas para recibir trabajos afines.
+          </p>
+          <button
+            type="button"
+            className="btn-actualizar-lineas"
+            onClick={() => navigate('/mi-cuenta')}
+          >
+            Actualizar mis líneas de interés
+          </button>
+        </div>
+      </div>
+    )
   }
 
   if (trabajoAEvaluar) {
