@@ -9,9 +9,6 @@ una misma historia de usuario:
 - `hu4-revisiones`: gestión y asignación de revisiones del comité.
 - `hu5-bandeja-revisor`: bandeja y formularios de evaluación del revisor.
 
-La carpeta `hu4-revisiones/legacy` conserva una implementación alternativa
-anterior que ya no está conectada a las rutas principales.
-
 Los elementos utilizados por varias historias permanecen fuera de estas
 carpetas:
 
