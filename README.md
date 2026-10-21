@@ -35,7 +35,7 @@ Luego abra `http://localhost:5173` en el navegador.
 | --- | --- | --- |
 | Autor | `rosa.quispe@aloe.ulima.edu.pe` | `React2026` |
 | Revisor | `luis.ramirez@ulima.edu.pe` | `Revisar2026` |
-| Comité organizador | `comite@ulima.edu.pe` | `Comite2026` |
+| Comité administrador | `comite@ulima.edu.pe` | `Comite2026` |
 
 Cada cuenta redirige automáticamente a las pantallas correspondientes a su rol.
 
