@@ -263,6 +263,12 @@
   width: 100%;
 }
 
+.hu1-session-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .hu1-user-menu {
   display: flex;
   align-items: center;
@@ -271,6 +277,30 @@
   border: 0;
   background: transparent;
   text-align: right;
+  text-decoration: none;
+}
+
+.hu1-user-menu:hover .hu1-user-copy strong,
+.hu1-user-menu:focus-visible .hu1-user-copy strong {
+  color: var(--hu1-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hu1-logout-button {
+  min-height: 36px;
+  padding: 7px 12px;
+  color: var(--hu1-primary);
+  border: 1px solid var(--hu1-primary);
+  border-radius: 2px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hu1-logout-button:hover {
+  color: #fff;
+  background: var(--hu1-primary);
 }
 
 .hu1-user-symbol {

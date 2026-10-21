@@ -91,19 +91,28 @@ function Hu1Header() {
               </NavLink>
             </div>
           ) : (
-            <button
-              className="hu1-user-menu"
-              onClick={handleLogout}
-              title="Cerrar sesión"
-              type="button"
-            >
-              <span className="hu1-user-symbol" aria-hidden="true" />
-              <span className="hu1-user-copy">
-                <strong>{session.name}</strong>
-                <small>Rol: {ROLE_LABELS[role]}</small>
-              </span>
-              <span className="hu1-user-initials" aria-hidden="true">{initials}</span>
-            </button>
+            <div className="hu1-session-actions">
+              <Link
+                className="hu1-user-menu"
+                to="/mi-cuenta"
+                title="Abrir Mi cuenta"
+                aria-label={`Abrir Mi cuenta de ${session.name}`}
+              >
+                <span className="hu1-user-symbol" aria-hidden="true" />
+                <span className="hu1-user-copy">
+                  <strong>{session.name}</strong>
+                  <small>Rol: {ROLE_LABELS[role]}</small>
+                </span>
+                <span className="hu1-user-initials" aria-hidden="true">{initials}</span>
+              </Link>
+              <button
+                className="hu1-logout-button"
+                onClick={handleLogout}
+                type="button"
+              >
+                Cerrar sesión
+              </button>
+            </div>
           )}
         </div>
       </div>

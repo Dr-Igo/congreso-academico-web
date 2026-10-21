@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
   AlertTriangle,
   ArrowLeft,
@@ -8,7 +7,6 @@ import {
   CalendarDays,
   Check,
   CheckCircle2,
-  ChevronDown,
   CircleHelp,
   Clock3,
   ExternalLink,
@@ -16,7 +14,6 @@ import {
   FileText,
   FolderOpen,
   Link as LinkIcon,
-  Menu,
   Pencil,
   Plus,
   Search,
@@ -25,7 +22,6 @@ import {
   Users,
   X,
 } from 'lucide-react'
-import { clearSession } from '../../lib/auth'
 import './hu3.css'
 
 const SEED = [
@@ -41,7 +37,6 @@ const blankForm = () => ({title:'',type:'Artículo completo',axis:'',abstract:''
 function loadWorks(){try{const value=localStorage.getItem('hu3-works');return value?JSON.parse(value):SEED;}catch{return SEED;}}
 function statusClass(status){return 'status status-'+status.toLowerCase().replaceAll(' ','-');}
 function Hu3Page(){
- const routeNavigate=useNavigate();
  const [works,setWorks]=useState(loadWorks);
  const [view,setView]=useState('list');
  const [form,setForm]=useState(blankForm);
@@ -56,7 +51,6 @@ function Hu3Page(){
  const [newAuthor,setNewAuthor]=useState({name:'',email:'',institution:''});
  const [correspondingEmail,setCorrespondingEmail]=useState('rosa.quispe@aloe.ulima.edu.pe');
  const [confirmDelete,setConfirmDelete]=useState(null);
- const [mobileMenu,setMobileMenu]=useState(false);
  useEffect(()=>{localStorage.setItem('hu3-works',JSON.stringify(works));},[works]);
  useEffect(()=>{if(!toast)return;const timer=setTimeout(()=>setToast(null),3800);return()=>clearTimeout(timer);},[toast]);
  const selected=works.find(w=>w.id===selectedId);
@@ -70,11 +64,9 @@ function Hu3Page(){
  const addCoauthor=()=>{const e={};if(!newAuthor.name.trim())e.name='Ingrese el nombre completo.';if(!/^\S+@\S+\.\S+$/.test(newAuthor.email.trim()))e.email='Ingrese un correo válido.';if(!newAuthor.institution.trim())e.institution='Ingrese la institución.';if(coauthors.some(a=>a.email.toLowerCase()===newAuthor.email.trim().toLowerCase()))e.email='Este correo ya figura entre los autores.';if(coauthors.length-1>=TYPES[form.type].coauthors)e.name=`Este tipo admite hasta ${TYPES[form.type].coauthors} coautores.`;if(Object.keys(e).length){setErrors(e);return;}setCoauthors(p=>[...p,{...newAuthor,email:newAuthor.email.trim(),corresponding:false}]);setNewAuthor({name:'',email:'',institution:''});setErrors({});};
  const removeWork=(work)=>{setWorks(p=>p.filter(w=>w.id!==work.id));setConfirmDelete(null);setView('list');setToast({type:'success',text:`Se retiró el trabajo ${work.id}.`});};
  const setStatusFilter=(s)=>{setFilter(s);setView('list');};
- const nav=(v)=>{setView(v);setMobileMenu(false);setErrors({});};
- return <div className="hu3-scope app-shell">
-  <header className="topbar"><div className="topbar-inner"><button className="brand" onClick={()=>nav('list')} aria-label="Ir a mis trabajos"><span className="brand-mark">C</span><span className="brand-copy"><strong>Congreso Académico Estudiantil</strong><small>UNIVERSIDAD DE LIMA · EDICIÓN 2026</small></span></button><div className="edition-state"><span className="state-dot"/> <span>ESTADO DE LA EDICIÓN</span><b>Recepción abierta</b></div><button className="mobile-menu" onClick={()=>setMobileMenu(p=>!p)}><Menu size={19}/></button></div></header>
-  <nav className={`nav-bar ${mobileMenu?'nav-open':''}`}><div className="nav-inner"><div className="nav-links"><button onClick={()=>routeNavigate('/acceso-denegado')}>Inicio</button><button onClick={startNew} className={view==='form'?'active':''}>Nuevo trabajo</button><button onClick={()=>nav('list')} className={view==='list'||view==='detail'?'active':''}>Mis trabajos</button><button onClick={()=>setToast({type:'info',text:'Tu presentación estará disponible cuando tengas un trabajo aceptado con una sesión asignada.'})}>Mi presentación</button><button onClick={()=>routeNavigate('/mi-cuenta')}>Mi cuenta</button><button onClick={()=>{clearSession();routeNavigate('/')}}>Cerrar sesión</button></div><div className="user-menu"><span className="avatar">RQ</span><span><strong>Rosa Quispe Ttito</strong><small>Rol: Autor</small></span><ChevronDown size={15}/></div></div></nav>
-  <main className="page-wrap">
+ const nav=(v)=>{setView(v);setErrors({});};
+ return <div className="hu3-scope">
+  <div className="page-wrap">
    {view!=='detail'&&<div className="deadline"><div><Clock3 size={16}/><span><strong>Recepción abierta.</strong> Cierra el 30/10/2026 a las 23:59.</span></div><strong className="deadline-count">Faltan 22 días</strong></div>}
    {view==='list'&&<section className="page-content"><div className="page-heading"><div><p className="eyebrow">ÁREA DE AUTOR</p><h1>Mis trabajos</h1><p className="subheading">Consulta y administra tus trabajos como autora o coautora.</p></div><button className="btn btn-primary" onClick={startNew}><Plus size={17}/> Nuevo trabajo</button></div>
     <div className="summary-row"><div className="summary-card"><span>Trabajos registrados</span><strong>{works.length}</strong><small>Como autora o coautora</small></div><div className="summary-card"><span>En revisión</span><strong>{works.filter(w=>w.status==='En revisión').length}</strong><small>En evaluación por el comité</small></div><div className="summary-card"><span>Decisión publicada</span><strong>{works.filter(w=>['Aceptado','Rechazado'].includes(w.status)).length}</strong><small>Aceptados o rechazados</small></div></div>
@@ -100,8 +92,7 @@ function Hu3Page(){
     {selected.status==='Enviado'&&<div className="alert alert-warning"><Clock3 size={18}/><div><strong>Trabajo enviado al comité.</strong><p>El comité organizará las revisiones. Mientras la recepción siga abierta, puedes editar o retirar el envío.</p></div></div>}
     <div className="detail-layout"><div className="detail-main"><div className="panel detail-panel"><div className="panel-heading"><h2>Datos del trabajo</h2>{(selected.status==='Borrador'||selected.status==='Enviado')&&<button className="btn btn-text" onClick={()=>startEdit(selected)}><Pencil size={15}/> Editar datos</button>}</div><div className="data-grid"><Data label="TIPO DE TRABAJO" value={selected.type}/><Data label="EJE TEMÁTICO" value={selected.axis}/><Data label="FECHA DE REGISTRO" value={selected.created}/></div><div className="detail-block"><label>RESUMEN</label><p>{selected.abstract}</p><div className="tag-row">{selected.keywords.map(k=><span className="keyword static" key={k}>{k}</span>)}</div></div><div className="detail-block"><label>ENLACE AL DOCUMENTO</label><a className="document-link" href={selected.url} target="_blank" rel="noreferrer">{selected.url} <ExternalLink size={14}/></a></div></div><div className="panel detail-panel"><div className="panel-heading"><h2>Coautores</h2><span className="counter-pill">{selected.authors.length} declarados</span></div>{selected.authors.map(a=><div className="author-compact" key={a.email}><div><strong>{a.name}</strong><span>{a.institution} · {a.email}</span></div>{a.corresponding&&<span className="corresponding-label">Autor de correspondencia</span>}</div>)}</div>{['Aceptado','Rechazado'].includes(selected.status)&&<div className="panel detail-panel"><h2>Retroalimentación consolidada</h2>{selected.feedback?.length?selected.feedback.map((f,i)=><div className="feedback-item" key={i}><strong>{f.reviewer}</strong><p>{f.text}</p></div>):<p className="muted">El comité aún no ha agregado comentarios.</p>}</div>}</div><aside className="detail-side"><div className={`decision-card decision-${selected.status.toLowerCase().replaceAll(' ','-')}`}><span className="eyebrow">DICTAMEN</span><h2>{selected.status==='Aceptado'?'Trabajo aceptado':selected.status==='Rechazado'?'Trabajo no aceptado':selected.status}</h2><p>{selected.status==='En revisión'?'La retroalimentación estará disponible cuando el comité publique la decisión.':selected.status==='Aceptado'?'El comité publicó la decisión de aceptación. Revisa los comentarios antes de preparar la presentación.':selected.status==='Rechazado'?'Consulta la retroalimentación y considera las observaciones para una futura convocatoria.':selected.status==='Borrador'?'Los borradores no participan del proceso de revisión. Debes enviarlo antes del cierre.':'El trabajo fue recibido y está pendiente de asignación de revisores.'}</p>{selected.score&&<div className="score-line"><span>Puntaje promedio</span><strong>{selected.score} / 20</strong></div>}</div><div className="panel timeline-panel"><h3>Seguimiento</h3><Timeline status={selected.status} date={selected.created}/></div>{(selected.status==='Borrador'||selected.status==='Enviado')&&<button className="btn btn-danger-outline full-width" onClick={()=>setConfirmDelete(selected)}><Trash2 size={16}/> Retirar trabajo</button>}<div className="help-note"><CircleHelp size={16}/><p>¿Necesitas corregir un dato después del cierre? Escribe al comité organizador.</p></div></aside></div><div className="back-row"><button className="btn btn-secondary" onClick={()=>nav('list')}><ArrowLeft size={16}/> Volver a mis trabajos</button></div>
    </section>}
-  </main>
-  <footer className="footer"><div className="footer-main"><div className="footer-brand"><strong>Congreso Académico Estudiantil</strong><p>Facultad de Ingeniería · Universidad de Lima.<br/>Av. Javier Prado Este 4600, Santiago de Surco, Lima.</p></div><div><strong>EL CONGRESO</strong><a>Bases y requisitos</a><a>Ejes temáticos</a><a>Programa</a></div><div><strong>PARTICIPANTES</strong><a>Guía para autores</a><a>Guía para revisores</a><a>Preguntas frecuentes</a></div><div><strong>CONTACTO</strong><a>congreso@ulima.edu.pe</a><a>(01) 437 6767 anexo 30450</a></div></div><div className="footer-bottom"><span>© 2026 Universidad de Lima. Todos los derechos reservados.</span><span>Términos de uso · Política de privacidad</span></div></footer>
+  </div>
   {toast&&<div className={`toast toast-${toast.type}`} role="status"><span className="toast-icon">{toast.type==='success'?<CheckCircle2 size={19}/>:toast.type==='warning'?<AlertTriangle size={19}/>:<CircleHelp size={19}/>}</span><span>{toast.text}</span><button onClick={()=>setToast(null)} aria-label="Cerrar notificación"><X size={16}/></button></div>}
   {confirmDelete&&<div className="modal-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)setConfirmDelete(null)}}><div className="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title"><div className="modal-icon"><AlertTriangle size={22}/></div><button className="modal-close" onClick={()=>setConfirmDelete(null)} aria-label="Cerrar"><X size={18}/></button><h2 id="confirm-title">Retirar trabajo</h2><p>¿Seguro que deseas retirar <strong>{confirmDelete.id}</strong> — “{confirmDelete.title}”? El trabajo será retirado de esta edición y dejará de participar en el proceso del congreso.</p><div className="modal-actions"><button className="btn btn-secondary" onClick={()=>setConfirmDelete(null)}>Cancelar</button><button className="btn btn-danger" onClick={()=>removeWork(confirmDelete)}><Trash2 size={16}/> Sí, retirar trabajo</button></div></div></div>}
  </div>

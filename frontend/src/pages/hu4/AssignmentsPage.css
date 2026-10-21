@@ -13,8 +13,8 @@
 
 .hu4-assignments-scope .pagina {
   position: relative;
-  min-height: 100vh;
-  padding-bottom: 452px; /* alto del pie en móvil: el pie queda pegado al fondo de la ventana */
+  min-height: 0;
+  padding-bottom: 0;
   background-color: #fbfaf8;
   color: #1f1a1b;
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
@@ -111,6 +111,19 @@
 .hu4-assignments-scope .barra-nav {
   background-color: #ffffff;
   border-bottom: 1px solid #e4dfda;
+}
+
+.hu4-assignments-scope .barra-nav-interna {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+
+.hu4-assignments-scope .barra-nav-interna .pestana {
+  flex: 0 0 auto;
+  margin-right: 0;
+  padding-right: 2px;
 }
 
 .hu4-assignments-scope .pestana {
@@ -1014,7 +1027,7 @@
 
 @media (min-width: 900px) {
   .hu4-assignments-scope .pagina {
-    padding-bottom: 170px; /* alto del pie en escritorio */
+    padding-bottom: 0;
   }
 
   .hu4-assignments-scope .usuario {

@@ -1,7 +1,6 @@
 // HU-4 Asignación de revisiones (Comité organizador)
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { ConsolidadoTrabajo } from "../ConsolidadoTrabajo";
 import "./AssignmentsPage.css";
 
@@ -207,7 +206,6 @@ function estadisticasDe(revisor, revisiones) {
    ==================================================================== */
 
 export default function AssignmentsPage() {
-  const navigate = useNavigate();
   const [vista, setVista] = useState("trabajos"); // "trabajos" | "revisores" | "seguimiento"
   const [trabajos, setTrabajos] = useState(TRABAJOS_INICIALES);
   const [revisiones, setRevisiones] = useState(REVISIONES_INICIALES);
@@ -265,19 +263,12 @@ export default function AssignmentsPage() {
     }
   }
 
-  const estadoEdicion = vista === "trabajos" && simularVacio ? "Recepción abierta" : "En revisión";
-
   return (
     <div className="pagina">
-      <Encabezado
-        vista={vista}
-        onCambiarVista={setVista}
-        estadoEdicion={estadoEdicion}
-        onIrConfiguracion={() => navigate("/configuracion-edicion")}
-      />
-
       <main className="principal">
         <div className="contenedor">
+          <Encabezado vista={vista} onCambiarVista={setVista} />
+
           {vista === "trabajos" && (
             <VistaTrabajos
               trabajos={simularVacio ? [] : trabajos}
@@ -311,8 +302,6 @@ export default function AssignmentsPage() {
         </div>
       </main>
 
-      <PiePagina />
-
       {aviso !== "" && (
         <div className="aviso" role="status">
           <p>{aviso}</p>
@@ -326,13 +315,10 @@ export default function AssignmentsPage() {
 }
 
 /* ====================================================================
-   4. ENCABEZADO Y PIE
+   4. NAVEGACIÓN INTERNA DE REVISIONES
    ==================================================================== */
 
-function Encabezado({ vista, onCambiarVista, estadoEdicion, onIrConfiguracion }) {
-  // Pestañas de otras historias: todavía no existen → alert("No implementado")
-  const pestanasPendientes = ["Configuración", "Programa", "Tablero", "Usuarios"];
-
+function Encabezado({ vista, onCambiarVista }) {
   function pestana(clave, texto) {
     return (
       <button
@@ -345,93 +331,12 @@ function Encabezado({ vista, onCambiarVista, estadoEdicion, onIrConfiguracion })
     );
   }
 
-  function pestanaPendiente(texto) {
-    return (
-      <button type="button" className="pestana" onClick={() => alert("No implementado")}>
-        {texto}
-      </button>
-    );
-  }
-
   return (
-    <header>
-      <div className="barra-superior">
-        <div className="contenedor">
-          <div className="logo">C</div>
-          <div className="marca">
-            <p className="marca-titulo">Congreso Académico Estudiantil</p>
-            <p className="marca-sub">UNIVERSIDAD DE LIMA · EDICIÓN 2026</p>
-          </div>
-          <div className="estado-edicion">
-            <span className="estado-edicion-etiqueta">ESTADO DE LA EDICIÓN</span>
-            <span className="estado-edicion-valor">
-              <span className="punto-estado">●</span>
-              {estadoEdicion}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <nav className="barra-nav" aria-label="Secciones del comité">
-        <div className="contenedor">
-          <button type="button" className="pestana" onClick={onIrConfiguracion}>
-            {pestanasPendientes[0]}
-          </button>
-          {pestana("trabajos", "Trabajos recibidos")}
-          {pestana("revisores", "Revisores")}
-          {pestana("seguimiento", "Seguimiento")}
-          {pestanaPendiente(pestanasPendientes[1])}
-          {pestanaPendiente(pestanasPendientes[2])}
-          {pestanaPendiente(pestanasPendientes[3])}
-
-          <div className="usuario">
-            <div className="usuario-texto">
-              <p className="usuario-nombre">Dra. Ana Salazar Bermúdez</p>
-              <p className="usuario-rol">Rol: Comité organizador</p>
-            </div>
-            <span className="avatar">AS</span>
-          </div>
-        </div>
-      </nav>
-    </header>
-  );
-}
-
-function PiePagina() {
-  return (
-    <footer className="pie-pagina">
-      <div className="contenedor">
-        <div className="pie-columnas">
-          <div className="pie-columna pie-col-marca">
-            <p className="pie-marca">Congreso Académico Estudiantil</p>
-            <p className="pie-texto">
-              Facultad de Ingeniería · Universidad de Lima. Av. Javier Prado Este 4600, Santiago de Surco, Lima.
-            </p>
-          </div>
-          <div className="pie-columna pie-col-congreso">
-            <p className="pie-titulo">EL CONGRESO</p>
-            <p className="pie-texto">Bases y requisitos</p>
-            <p className="pie-texto">Ejes temáticos</p>
-            <p className="pie-texto">Programa</p>
-          </div>
-          <div className="pie-columna pie-col-participantes">
-            <p className="pie-titulo">PARTICIPANTES</p>
-            <p className="pie-texto">Guía para autores</p>
-            <p className="pie-texto">Guía para revisores</p>
-            <p className="pie-texto">Preguntas frecuentes</p>
-          </div>
-          <div className="pie-columna pie-col-contacto">
-            <p className="pie-titulo">CONTACTO</p>
-            <p className="pie-texto">congreso@ulima.edu.pe</p>
-            <p className="pie-texto">(01) 437 6767 anexo 30450</p>
-          </div>
-        </div>
-        <div className="pie-legal">
-          <p className="pie-legal-izquierda">© 2026 Universidad de Lima. Todos los derechos reservados.</p>
-          <p className="pie-legal-derecha">Términos de uso · Política de privacidad</p>
-        </div>
-      </div>
-    </footer>
+    <nav className="barra-nav barra-nav-interna" aria-label="Secciones de revisiones">
+      {pestana("trabajos", "Trabajos recibidos")}
+      {pestana("revisores", "Revisores")}
+      {pestana("seguimiento", "Seguimiento")}
+    </nav>
   );
 }
 

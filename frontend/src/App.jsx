@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom'
-import Layout from './components/Layout'
 import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
 import PasswordRecoveryPage from './pages/PasswordRecoveryPage'
@@ -20,25 +19,6 @@ import Hu1Layout from './historias/hu1/Hu1Layout'
 function App() {
   return (
     <Routes>
-      <Route
-        path="/mis-trabajos"
-        element={
-          <ProtectedRoute allowedRoles={['autor', 'ambos']}>
-            <Hu3Page />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/gestion-revisiones"
-        element={
-          <ProtectedRoute allowedRoles={['comite']}>
-            <div className="hu4-assignments-scope">
-              <AssignmentsPage />
-            </div>
-          </ProtectedRoute>
-        }
-      />
-
       <Route element={<Hu1Layout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/iniciar-sesion" element={<LoginPage />} />
@@ -62,15 +42,29 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-
-      <Route element={<Layout />}>
+        <Route
+          path="/mis-trabajos"
+          element={
+            <ProtectedRoute allowedRoles={['autor', 'ambos']}>
+              <Hu3Page />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/configuracion-edicion"
           element={
             <ProtectedRoute allowedRoles={['comite']}>
               <ConfiguracionPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/gestion-revisiones"
+          element={
+            <ProtectedRoute allowedRoles={['comite']}>
+              <div className="hu4-assignments-scope">
+                <AssignmentsPage />
+              </div>
             </ProtectedRoute>
           }
         />
@@ -85,6 +79,7 @@ function App() {
           }
         />
         <Route path="/demo" element={<DemoPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   )
