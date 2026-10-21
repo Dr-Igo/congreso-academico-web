@@ -46,7 +46,23 @@ function App() {
           path="/mis-trabajos"
           element={
             <ProtectedRoute allowedRoles={['autor', 'ambos']}>
-              <Hu3Page />
+              <Hu3Page key="work-list" initialView="list" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/nuevo-trabajo"
+          element={
+            <ProtectedRoute allowedRoles={['autor', 'ambos']}>
+              <Hu3Page key="new-work" initialView="form" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/mi-presentacion"
+          element={
+            <ProtectedRoute allowedRoles={['autor', 'ambos']}>
+              <Hu3Page key="presentation" initialView="presentation" />
             </ProtectedRoute>
           }
         />

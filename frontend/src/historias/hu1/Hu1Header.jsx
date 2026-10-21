@@ -58,9 +58,9 @@ function Hu1Header() {
 
             {(role === 'autor' || role === 'ambos') && (
               <>
-                <NavLink className={linkClassName} to="/mis-trabajos">Nuevo trabajo</NavLink>
-                <NavLink className={linkClassName} to="/mis-trabajos">Mis trabajos</NavLink>
-                <NavLink className={linkClassName} to="/mis-trabajos">Mi presentación</NavLink>
+                <NavLink className={linkClassName} to="/nuevo-trabajo">Nuevo trabajo</NavLink>
+                <NavLink className={linkClassName} end to="/mis-trabajos">Mis trabajos</NavLink>
+                <NavLink className={linkClassName} to="/mi-presentacion">Mi presentación</NavLink>
                 <NavLink className={linkClassName} to="/mi-cuenta">Mi cuenta</NavLink>
               </>
             )}
