@@ -184,11 +184,11 @@ export default function PestanaTipos({ activa, onCambiar, tipos, setTipos, avisa
         <div className="cfg-tarjeta cfg-tabla-caja">
           <table className="cfg-tabla cfg-tabla-alta">
             <colgroup>
-              <col style={{ width: 322 }} />
+              <col style={{ width: 299 }} />
               <col style={{ width: 225 }} />
               <col style={{ width: 224 }} />
               <col style={{ width: 282 }} />
-              <col style={{ width: 147 }} />
+              <col style={{ width: 170 }} />
             </colgroup>
             <thead>
               <tr>
@@ -196,7 +196,7 @@ export default function PestanaTipos({ activa, onCambiar, tipos, setTipos, avisa
                 <th>Extensión máxima</th>
                 <th>Formato esperado</th>
                 <th>Admite coautores</th>
-                <th className="cfg-der">Acciones</th>
+                <th className="cfg-der cfg-acciones">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -208,7 +208,7 @@ export default function PestanaTipos({ activa, onCambiar, tipos, setTipos, avisa
                   <td className={"cfg-fuerte " + (tipo.coautores ? "cfg-verde" : "cfg-suave")}>
                     {tipo.coautores ? "Sí · hasta " + tipo.maxCoautores : "No"}
                   </td>
-                  <td className="cfg-der">
+                  <td className="cfg-der cfg-acciones">
                     <button type="button" className="cfg-enlace" onClick={() => setModal(tipo)}>
                       Editar
                     </button>

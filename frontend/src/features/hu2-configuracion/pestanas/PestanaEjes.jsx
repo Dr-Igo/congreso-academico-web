@@ -170,10 +170,10 @@ export default function PestanaEjes({ activa, onCambiar, ejes, setEjes, avisar }
             <table className="cfg-tabla">
               <colgroup>
                 <col style={{ width: 286 }} />
-                <col style={{ width: 371 }} />
+                <col style={{ width: 348 }} />
                 <col style={{ width: 266 }} />
                 <col style={{ width: 130 }} />
-                <col style={{ width: 147 }} />
+                <col style={{ width: 170 }} />
               </colgroup>
               <thead>
                 <tr>
@@ -181,7 +181,7 @@ export default function PestanaEjes({ activa, onCambiar, ejes, setEjes, avisar }
                   <th>Descripción</th>
                   <th>Responsable</th>
                   <th className="cfg-der">Trabajos</th>
-                  <th className="cfg-der">Acciones</th>
+                  <th className="cfg-der cfg-acciones">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -191,7 +191,7 @@ export default function PestanaEjes({ activa, onCambiar, ejes, setEjes, avisar }
                     <td className="cfg-suave cfg-tabla-desc">{eje.descripcion}</td>
                     <td className="cfg-suave">{eje.responsable}</td>
                     <td className="cfg-der cfg-fuerte">{eje.trabajos}</td>
-                    <td className="cfg-der">
+                    <td className="cfg-der cfg-acciones">
                       <button type="button" className="cfg-enlace" onClick={() => setModal(eje)}>
                         Editar
                       </button>

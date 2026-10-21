@@ -297,6 +297,13 @@ select.cfg-campo {
   padding-right: 22px;
 }
 
+.cfg-tabla th.cfg-acciones,
+.cfg-tabla td.cfg-acciones {
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+}
+
 .cfg-tabla-desc {
   font-size: 14px;
 }

@@ -189,7 +189,7 @@ export default function PestanaCriterios({ activa, onCambiar, criterios, setCrit
                 <th>Criterio</th>
                 <th>Descripción</th>
                 <th className="cfg-der">Peso</th>
-                <th className="cfg-der">Acciones</th>
+                <th className="cfg-der cfg-acciones">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -198,7 +198,7 @@ export default function PestanaCriterios({ activa, onCambiar, criterios, setCrit
                   <td className="cfg-fuerte">{c.nombre}</td>
                   <td className="cfg-suave cfg-tabla-desc">{c.descripcion}</td>
                   <td className="cfg-der cfg-fuerte">{c.peso}</td>
-                  <td className="cfg-der">
+                  <td className="cfg-der cfg-acciones">
                     <button type="button" className="cfg-enlace" onClick={() => setModal(c)}>
                       Editar
                     </button>
