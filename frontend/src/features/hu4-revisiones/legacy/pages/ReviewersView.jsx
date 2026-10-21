@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react'
-import Button from '../../components/hu4/Button.jsx'
-import FilterSelect from '../../components/hu4/FilterSelect.jsx'
-import PageHeader, { th } from '../../components/hu4/PageHeader.jsx'
-import Pagination from '../../components/hu4/Pagination.jsx'
-import SearchInput from '../../components/hu4/SearchInput.jsx'
-import InviteModal from '../../components/hu4/InviteModal.jsx'
-import { INTEREST_LINES } from '../../data/seed.js'
-import { norm, plural, reviewerStats } from '../../lib/utils.js'
+import Button from '../components/Button.jsx'
+import FilterSelect from '../components/FilterSelect.jsx'
+import PageHeader, { th } from '../components/PageHeader.jsx'
+import Pagination from '../components/Pagination.jsx'
+import SearchInput from '../components/SearchInput.jsx'
+import InviteModal from '../components/InviteModal.jsx'
+import { INTEREST_LINES } from '../data/seed.js'
+import { norm, plural, reviewerStats } from '../utils.js'
 
 const PAGE_SIZE = 8
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Button from './Button.jsx'
 import Modal from './Modal.jsx'
-import { INTEREST_LINES } from '../../data/seed.js'
+import { INTEREST_LINES } from '../data/seed.js'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const label = 'text-[10px] font-semibold uppercase tracking-[0.08em] text-muted'

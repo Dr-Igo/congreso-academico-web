@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react'
-import Badge from '../../components/hu4/Badge.jsx'
-import Button, { LinkButton } from '../../components/hu4/Button.jsx'
-import { AlertCircle, Check } from '../../components/hu4/Icons.jsx'
-import PageHeader, { th } from '../../components/hu4/PageHeader.jsx'
-import ReassignModal from '../../components/hu4/ReassignModal.jsx'
-import { STAGE_CLOSE } from '../../data/seed.js'
-import { daysBetween, fmtDate, plural } from '../../lib/utils.js'
+import Badge from '../components/Badge.jsx'
+import Button, { LinkButton } from '../components/Button.jsx'
+import { AlertCircle, Check } from '../components/Icons.jsx'
+import PageHeader, { th } from '../components/PageHeader.jsx'
+import ReassignModal from '../components/ReassignModal.jsx'
+import { STAGE_CLOSE } from '../data/seed.js'
+import { daysBetween, fmtDate, plural } from '../utils.js'
 
 export default function TrackingView({ works, reviewers, reviews, onReassign, notify }) {
   const [onlyOverdue, setOnlyOverdue] = useState(false)

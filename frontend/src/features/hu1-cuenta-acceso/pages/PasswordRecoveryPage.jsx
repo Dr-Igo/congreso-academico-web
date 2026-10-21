@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { updateStoredPassword } from '../lib/auth'
+import { updateStoredPassword } from '../../../lib/auth'
 
 const initialForm = {
   email: 'rosa.quispe@aloe.ulima.edu.pe',

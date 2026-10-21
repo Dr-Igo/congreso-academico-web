@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { getAccountByEmail, getRoleHome, saveSession } from '../lib/auth'
+import { getAccountByEmail, getRoleHome, saveSession } from '../../../lib/auth'
 
 const DEMO_ACCOUNTS = [
   {

@@ -5,8 +5,8 @@ import { AlertCircle } from './Icons.jsx'
 import Modal from './Modal.jsx'
 import SearchInput from './SearchInput.jsx'
 import { th } from './PageHeader.jsx'
-import { MAX_REVIEWERS, MIN_REVIEWERS, STAGE_CLOSE, TODAY } from '../../data/seed.js'
-import { coauthorLabel, conflictFor, norm, plural } from '../../lib/utils.js'
+import { MAX_REVIEWERS, MIN_REVIEWERS, STAGE_CLOSE, TODAY } from '../data/seed.js'
+import { coauthorLabel, conflictFor, norm, plural } from '../utils.js'
 
 /**
  * Asignación de revisores a uno o varios trabajos (lote).

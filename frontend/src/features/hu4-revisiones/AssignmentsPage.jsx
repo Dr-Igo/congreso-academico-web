@@ -1,7 +1,7 @@
 // HU-4 Asignación de revisiones (Comité organizador)
 
 import { useState } from "react";
-import { ConsolidadoTrabajo } from "../ConsolidadoTrabajo";
+import { ConsolidadoTrabajo } from "./ConsolidadoTrabajo";
 import "./AssignmentsPage.css";
 
 /*

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { saveAccount, saveSession } from '../lib/auth'
+import { saveAccount, saveSession } from '../../../lib/auth'
 
 const initialForm = {
   firstName: 'Rosa María',

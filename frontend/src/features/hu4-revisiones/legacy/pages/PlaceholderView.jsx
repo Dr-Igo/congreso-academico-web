@@ -1,5 +1,5 @@
-import PageHeader from '../../components/hu4/PageHeader.jsx'
-import { InboxEmpty } from '../../components/hu4/Icons.jsx'
+import PageHeader from '../components/PageHeader.jsx'
+import { InboxEmpty } from '../components/Icons.jsx'
 
 const OWNERS = {
   config: 'HU-2 · Configuración de la edición',

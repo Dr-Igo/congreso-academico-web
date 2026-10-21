@@ -4,7 +4,7 @@ import { clearSession, getSession, ROLE_LABELS } from '../../lib/auth'
 const linkClassName = ({ isActive }) =>
   isActive ? 'hu1-nav-link hu1-nav-link--active' : 'hu1-nav-link'
 
-function Hu1Header() {
+function SiteHeader() {
   const navigate = useNavigate()
   const session = getSession()
   const role = session?.role
@@ -120,4 +120,4 @@ function Hu1Header() {
   )
 }
 
-export default Hu1Header
+export default SiteHeader

@@ -2,8 +2,8 @@ import { useMemo, useState } from 'react'
 import Button from './Button.jsx'
 import { AlertCircle } from './Icons.jsx'
 import Modal from './Modal.jsx'
-import { MIN_REVIEWERS, STAGE_CLOSE, TODAY } from '../../data/seed.js'
-import { conflictFor, fmtDate } from '../../lib/utils.js'
+import { MIN_REVIEWERS, STAGE_CLOSE, TODAY } from '../data/seed.js'
+import { conflictFor, fmtDate } from '../utils.js'
 
 
 const MIN_REASON = 10

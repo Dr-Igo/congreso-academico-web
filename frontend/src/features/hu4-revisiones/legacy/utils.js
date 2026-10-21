@@ -1,4 +1,4 @@
-import { TODAY } from '../data/seed.js'
+import { TODAY } from './data/seed.js'
 
 const toDate = (iso) => new Date(`${iso}T00:00:00`)
 

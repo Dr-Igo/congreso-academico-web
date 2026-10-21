@@ -1,24 +1,24 @@
 import { Route, Routes } from 'react-router-dom'
-import LandingPage from './pages/LandingPage'
-import LoginPage from './pages/LoginPage'
-import PasswordRecoveryPage from './pages/PasswordRecoveryPage'
-import RegisterPage from './pages/RegisterPage'
+import LandingPage from './features/hu1-cuenta-acceso/pages/LandingPage'
+import LoginPage from './features/hu1-cuenta-acceso/pages/LoginPage'
+import PasswordRecoveryPage from './features/hu1-cuenta-acceso/pages/PasswordRecoveryPage'
+import RegisterPage from './features/hu1-cuenta-acceso/pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
-import Hu3Page from './historias/hu3/Hu3Page'
-import ConfiguracionPage from './historias/hu2/ConfiguracionPage'
-import AssignmentsPage from './pages/hu4/AssignmentsPage'
-import { BandejaRevisor } from './pages/BandejaRevisor'
-import AccountPage from './pages/AccountPage'
-import AccessDeniedPage from './pages/AccessDeniedPage'
-import CommitteeInvitationPage from './pages/CommitteeInvitationPage'
-import RegistrationSuccessPage from './pages/RegistrationSuccessPage'
+import Hu3Page from './features/hu3-trabajos/Hu3Page'
+import ConfiguracionPage from './features/hu2-configuracion/ConfiguracionPage'
+import AssignmentsPage from './features/hu4-revisiones/AssignmentsPage'
+import { BandejaRevisor } from './features/hu5-bandeja-revisor/BandejaRevisor'
+import AccountPage from './features/hu1-cuenta-acceso/pages/AccountPage'
+import AccessDeniedPage from './features/hu1-cuenta-acceso/pages/AccessDeniedPage'
+import CommitteeInvitationPage from './features/hu1-cuenta-acceso/pages/CommitteeInvitationPage'
+import RegistrationSuccessPage from './features/hu1-cuenta-acceso/pages/RegistrationSuccessPage'
 import ProtectedRoute from './components/ProtectedRoute'
-import Hu1Layout from './historias/hu1/Hu1Layout'
+import SiteLayout from './components/layout/SiteLayout'
 
 function App() {
   return (
     <Routes>
-      <Route element={<Hu1Layout />}>
+      <Route element={<SiteLayout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/iniciar-sesion" element={<LoginPage />} />
         <Route path="/recuperar-contrasena" element={<PasswordRecoveryPage />} />

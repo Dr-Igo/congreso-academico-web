@@ -1,5 +1,5 @@
 import { Link, Navigate, useLocation } from 'react-router-dom'
-import { getRoleHome, getSession, ROLE_LABELS } from '../lib/auth'
+import { getRoleHome, getSession, ROLE_LABELS } from '../../../lib/auth'
 
 function RegistrationSuccessPage() {
   const location = useLocation()

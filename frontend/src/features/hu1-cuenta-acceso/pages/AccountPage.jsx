@@ -5,7 +5,7 @@ import {
   REVIEW_INTERESTS,
   saveAccount,
   saveSession,
-} from '../lib/auth'
+} from '../../../lib/auth'
 
 function createProfile(session) {
   const storedAccount = getAccountByEmail(session.email)

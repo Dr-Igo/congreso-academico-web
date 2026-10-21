@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function Hu1Footer() {
+function SiteFooter() {
   return (
     <footer className="hu1-footer">
       <div className="hu1-container hu1-footer-grid">
@@ -37,4 +37,4 @@ function Hu1Footer() {
   )
 }
 
-export default Hu1Footer
+export default SiteFooter

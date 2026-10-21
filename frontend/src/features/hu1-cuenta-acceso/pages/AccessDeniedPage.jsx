@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { getRoleHome, getSession, ROLE_LABELS } from '../lib/auth'
+import { getRoleHome, getSession, ROLE_LABELS } from '../../../lib/auth'
 
 function AccessDeniedPage() {
   const session = getSession()
