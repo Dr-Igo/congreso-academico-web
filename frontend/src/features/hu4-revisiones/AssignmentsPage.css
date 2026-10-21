@@ -24,7 +24,7 @@
 
 .hu4-assignments-scope .contenedor {
   position: relative;
-  width: 94%;
+  width: min(1200px, calc(100% - 40px));
   margin: 0 auto;
 }
 
@@ -104,48 +104,6 @@
 .hu4-assignments-scope .punto-estado {
   color: #b7791f;
   margin-right: 4px;
-}
-
-/* ---------- Barra de navegación (pestañas) ---------- */
-
-.hu4-assignments-scope .barra-nav {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e4dfda;
-}
-
-.hu4-assignments-scope .barra-nav-interna {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 24px;
-  overflow-x: auto;
-}
-
-.hu4-assignments-scope .barra-nav-interna .pestana {
-  flex: 0 0 auto;
-  margin-right: 0;
-  padding-right: 2px;
-}
-
-.hu4-assignments-scope .pestana {
-  background-color: #ffffff;
-  border: none;
-  border-bottom: 2px solid #ffffff;
-  padding: 14px 12px 12px 0;
-  margin-right: 6px;
-  color: #1f1a1b;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.hu4-assignments-scope .pestana:hover {
-  color: #7a2231;
-}
-
-.hu4-assignments-scope .pestana-activa {
-  border-bottom: 2px solid #7a2231;
-  color: #7a2231;
-  font-weight: 600;
 }
 
 .hu4-assignments-scope .usuario {
@@ -1035,15 +993,6 @@
     position: absolute;
     top: 8px;
     right: 0;
-  }
-
-  .hu4-assignments-scope .pestana {
-    padding: 14px 14px 12px 14px;
-    margin-right: 0;
-  }
-
-  .hu4-assignments-scope .pestana:first-child {
-    padding-left: 0;
   }
 
   /* botones alineados a la derecha del título */

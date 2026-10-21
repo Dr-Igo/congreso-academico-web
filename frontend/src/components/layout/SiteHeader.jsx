@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { clearSession, getSession, ROLE_LABELS } from '../../lib/auth'
 
 const linkClassName = ({ isActive }) =>
@@ -6,9 +6,15 @@ const linkClassName = ({ isActive }) =>
 
 function SiteHeader() {
   const navigate = useNavigate()
+  const location = useLocation()
   const session = getSession()
   const role = session?.role
   const homePath = role === 'autor' || role === 'ambos' ? '/acceso-denegado' : '/'
+  const committeeSection = new URLSearchParams(location.search).get('seccion') || 'trabajos'
+  const committeeReviewClassName = (section) =>
+    location.pathname === '/gestion-revisiones' && committeeSection === section
+      ? 'hu1-nav-link hu1-nav-link--active'
+      : 'hu1-nav-link'
   const initials = session?.name
     ?.split(' ')
     .filter(Boolean)
@@ -46,7 +52,9 @@ function SiteHeader() {
       <div className="hu1-navigation-bar">
         <div className="hu1-container hu1-navigation-row">
           <nav aria-label="Navegación principal">
-            <NavLink className={linkClassName} end to={homePath}>Inicio</NavLink>
+            {role !== 'comite' && (
+              <NavLink className={linkClassName} end to={homePath}>Inicio</NavLink>
+            )}
 
             {!session && (
               <>
@@ -75,8 +83,15 @@ function SiteHeader() {
             {role === 'comite' && (
               <>
                 <NavLink className={linkClassName} to="/configuracion-edicion">Configuración</NavLink>
-                <NavLink className={linkClassName} to="/gestion-revisiones">Revisiones</NavLink>
-                <NavLink className={linkClassName} to="/mi-cuenta">Mi cuenta</NavLink>
+                <Link className={committeeReviewClassName('trabajos')} to="/gestion-revisiones">
+                  Trabajos recibidos
+                </Link>
+                <Link className={committeeReviewClassName('revisores')} to="/gestion-revisiones?seccion=revisores">
+                  Revisores
+                </Link>
+                <Link className={committeeReviewClassName('seguimiento')} to="/gestion-revisiones?seccion=seguimiento">
+                  Seguimiento
+                </Link>
               </>
             )}
           </nav>

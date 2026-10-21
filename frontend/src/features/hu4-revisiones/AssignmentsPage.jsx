@@ -1,6 +1,7 @@
 // HU-4 Asignación de revisiones (Comité organizador)
 
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { ConsolidadoTrabajo } from "./ConsolidadoTrabajo";
 import "./AssignmentsPage.css";
 
@@ -206,7 +207,11 @@ function estadisticasDe(revisor, revisiones) {
    ==================================================================== */
 
 export default function AssignmentsPage() {
-  const [vista, setVista] = useState("trabajos"); // "trabajos" | "revisores" | "seguimiento"
+  const [searchParams] = useSearchParams();
+  const seccionSolicitada = searchParams.get("seccion");
+  const vista = ["trabajos", "revisores", "seguimiento"].includes(seccionSolicitada)
+    ? seccionSolicitada
+    : "trabajos";
   const [trabajos, setTrabajos] = useState(TRABAJOS_INICIALES);
   const [revisiones, setRevisiones] = useState(REVISIONES_INICIALES);
   const [simularVacio, setSimularVacio] = useState(false);
@@ -267,8 +272,6 @@ export default function AssignmentsPage() {
     <div className="pagina">
       <main className="principal">
         <div className="contenedor">
-          <Encabezado vista={vista} onCambiarVista={setVista} />
-
           {vista === "trabajos" && (
             <VistaTrabajos
               trabajos={simularVacio ? [] : trabajos}
@@ -315,33 +318,7 @@ export default function AssignmentsPage() {
 }
 
 /* ====================================================================
-   4. NAVEGACIÓN INTERNA DE REVISIONES
-   ==================================================================== */
-
-function Encabezado({ vista, onCambiarVista }) {
-  function pestana(clave, texto) {
-    return (
-      <button
-        type="button"
-        className={vista === clave ? "pestana pestana-activa" : "pestana"}
-        onClick={() => onCambiarVista(clave)}
-      >
-        {texto}
-      </button>
-    );
-  }
-
-  return (
-    <nav className="barra-nav barra-nav-interna" aria-label="Secciones de revisiones">
-      {pestana("trabajos", "Trabajos recibidos")}
-      {pestana("revisores", "Revisores")}
-      {pestana("seguimiento", "Seguimiento")}
-    </nav>
-  );
-}
-
-/* ====================================================================
-   5. COMPONENTES COMPARTIDOS
+   4. COMPONENTES COMPARTIDOS
    ==================================================================== */
 
 function EncabezadoPagina({ titulo, subtitulo, children }) {
